@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 )
 public class HelloAppEngine extends HttpServlet {
 
+	
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
@@ -20,7 +21,7 @@ public class HelloAppEngine extends HttpServlet {
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
 
-    response.getWriter().print("Hola práctica de ISI!\r\n");
+    response.getWriter().print("Hola prï¿½ctica de ISI!\r\n");
 
   }
 }
