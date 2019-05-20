@@ -1,6 +1,7 @@
 package practicasisi.comparador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 @WebServlet(
 	    name = "FuenteCochesNet",
@@ -32,13 +35,16 @@ public class FuenteCochesNet extends HttpServlet{
 
 	    response.getWriter().print("Hola práctica de ISI!\r\n");
 
-	    Document doc = prueba();
-	    
+	    Document doc = ObtenerHTML();
 	    response.getWriter().print(doc);
+	    
+	    ArrayList<ArrayList<String>> salida = SacarDatos(doc);
+	    
+	    response.getWriter().print(salida);
 	  }
 	
-	public Document prueba() {
-		String url = "https://www.milanuncios.com/citroen-de-segunda-mano-en-granada/?fromSearch=1&demanda=n&combustible=gasolina&puertas=5";
+	public Document ObtenerHTML() {
+		String url = "https://www.coches.net/segunda-mano/?MakeId=18&ModelId=1202";
 		Response response = null;
 	    try {
 	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
@@ -57,11 +63,37 @@ public class FuenteCochesNet extends HttpServlet{
 			e.printStackTrace();
 		}
 
-
-	    
-	    
 	    return doc;
 	    
+	}
+	
+	
+	public ArrayList<ArrayList<String>> SacarDatos(Document doc) {
+		
+		ArrayList<ArrayList<String>> tabla = new ArrayList<ArrayList<String>>();
+		
+		Element body = doc.body();
+		Elements divPrecios = body.getElementsByClass("mt-AdPrice-amount");
+		//Ciudad, combustible, año, km
+		Elements divAtributos = body.getElementsByClass("mt-CardAd-attribute");
+
+		
+		ArrayList<String> precios = new ArrayList<String>();
+		ArrayList<String> atributos = new ArrayList<String>();
+		//String documento = "";
+		for(Element precio : divPrecios) {
+			precios.add(precio.text());
+			//documento += precio.text();
+		}
+		
+		for(Element atributo : divAtributos) {
+			atributos.add(atributo.text());
+		}
+		
+		tabla.add(precios);
+		tabla.add(atributos);
+		
+		return tabla;
 	}
 	
 }
