@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 )
 public class HelloAppEngine extends HttpServlet {
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> Andres
   /**
 	 * 
 	 */

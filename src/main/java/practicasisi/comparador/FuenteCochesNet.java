@@ -38,7 +38,7 @@ public class FuenteCochesNet extends HttpServlet{
 	    Document doc = ObtenerHTML();
 	    response.getWriter().print(doc);
 	    
-	    ArrayList<ArrayList<String>> salida = SacarDatos(doc);
+	    ArrayList<ArrayList<String>> salida = ObtenerDatos(doc);
 	    
 	    response.getWriter().print(salida);
 	  }
@@ -68,32 +68,61 @@ public class FuenteCochesNet extends HttpServlet{
 	}
 	
 	
-	public ArrayList<ArrayList<String>> SacarDatos(Document doc) {
+	public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 		
-		ArrayList<ArrayList<String>> tabla = new ArrayList<ArrayList<String>>();
-		
+		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 		Element body = doc.body();
-		Elements divPrecios = body.getElementsByClass("mt-AdPrice-amount");
-		//Ciudad, combustible, a�o, km
-		Elements divAtributos = body.getElementsByClass("mt-CardAd-attribute");
-
-		
-		ArrayList<String> precios = new ArrayList<String>();
-		ArrayList<String> atributos = new ArrayList<String>();
-		//String documento = "";
-		for(Element precio : divPrecios) {
-			precios.add(precio.text());
-			//documento += precio.text();
+		Elements articulos = body.getElementsByClass("contenido-anuncio");
+		String prec="";
+		for (Element articulo : articulos){
+			
+				Elements lis = articulo.select("li");
+				ArrayList<String> meter= new ArrayList<String>();
+				//meter.add(articulo.select("h2").text());
+				//prec=lis.select("span:contains(cv)").text();
+				//MARCA Y MODELO
+				meter.add(articulo.select("h2").text());
+				//POTENCIA
+				prec=lis.select("span:contains(cv)").text();
+				prec = prec.replace("cv","");
+				//meter.add(prec);
+				//ZONA GEOGRAFICA
+				lis = articulo.select("li:contains(Provincia)");
+				prec=lis.select("span").text();
+				meter.add(lis.select("span").text());
+				//FECHA MATRICULACION
+				lis = articulo.select("li:contains(Matriculación)");
+				prec=lis.select("span").text();
+				meter.add(lis.select("span").text());
+				//PRECIO
+				
+				prec=articulo.select(".precio").first().text();
+				prec = prec.replace("Con financiación","");
+				prec = prec.replace("€","");
+				meter.add(prec);
+				//KILÓMETROS
+				
+				lis = articulo.select("li:contains(Kilómetros)");
+				prec=lis.select("span").text();
+				prec = prec.replace("km","");
+//				prec=lis.select("span").text();
+				meter.add(prec);
+				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
+		  //  datos = "\n"+articulo.select("h2").text();
+		    datos.add(meter);
 		}
 		
-		for(Element atributo : divAtributos) {
-			atributos.add(atributo.text());
-		}
-		
-		tabla.add(precios);
-		tabla.add(atributos);
-		
-		return tabla;
+		/*
+		 * Tipo de combustible.
+Potencia y tamaño del motor.
+Kilómetros recorridos del vehículo.
+Marca y modelo.
+Zona geográfica.
+Fecha de matriculación.
+Precio.
+*/
+		 
+		return datos;
 	}
 	
 }

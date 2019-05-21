@@ -23,7 +23,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Antonio/eclipse-workspace/ComparadorCoches/libraries/jsoup-1.11.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Antonio/.m2/repository/com/google/appengine/appengine-api-1.0-sdk/1.9.73/appengine-api-1.0-sdk-1.9.73.jar"/>
+	<classpathentry kind="lib" path="libraries/jsoup-1.11.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
