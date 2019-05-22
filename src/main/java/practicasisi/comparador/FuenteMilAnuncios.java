@@ -49,11 +49,13 @@ public class FuenteMilAnuncios extends HttpServlet{
 			public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 				Element body = doc.body();
-				Elements articulos = body.getElementsByClass("contenido-anuncio");
+				Elements articulos = body.getElementsByClass("anuncio");
+				
 				String prec="";
 				for (Element articulo : articulos){
 					
 						Elements lis = articulo.select("li");
+						
 						ArrayList<String> meter= new ArrayList<String>();
 						//meter.add(articulo.select("h2").text());
 						//prec=lis.select("span:contains(cv)").text();
@@ -62,7 +64,10 @@ public class FuenteMilAnuncios extends HttpServlet{
 						//POTENCIA
 						prec=lis.select("span:contains(cv)").text();
 						prec = prec.replace("cv","");
-						//meter.add(prec);
+						meter.add(prec);
+						//COMBUSTIBLE
+						prec=lis.select("li:contains(Combustible)").select("span").text();
+						meter.add(prec);
 						//ZONA GEOGRAFICA
 						lis = articulo.select("li:contains(Provincia)");
 						prec=lis.select("span").text();
@@ -81,13 +86,30 @@ public class FuenteMilAnuncios extends HttpServlet{
 						
 						lis = articulo.select("li:contains(Kilómetros)");
 						prec=lis.select("span").text();
+						//prec = prec.replace("Kilómetros:","");
 						prec = prec.replace("km","");
-//						prec=lis.select("span").text();
+						
 						meter.add(prec);
-						//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
-				  //  datos = "\n"+articulo.select("h2").text();
+						//URL
+						
+						
+						lis=articulo.select("a");
+						prec="https://www.autocasion.com"+lis.attr("href");
+						meter.add(prec);
+				    datos.add(meter);
+				    //IMAGEN
+				    lis=articulo.select("img");
+				    prec="https:"+lis.attr("src");
+				    meter.add(prec);
+				    
 				    datos.add(meter);
 				}
+//				articulos = body.getElementsByClass("anuncio");
+//				for (Element articulo : articulos){
+//					lis = articulo.select("li:contains(Kilómetros)");
+//				}
+				
+				
 				
 				/*
 				 * Tipo de combustible.
