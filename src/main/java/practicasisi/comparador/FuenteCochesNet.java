@@ -35,7 +35,7 @@ public class FuenteCochesNet extends HttpServlet{
 
 	    response.getWriter().print("Hola práctica de ISI!\r\n");
 
-	    Document doc = ObtenerHTML();
+	    Document doc = ObtenerDoc();
 	    response.getWriter().print(doc);
 	    
 	    ArrayList<ArrayList<String>> salida = ObtenerDatos(doc);
@@ -43,7 +43,7 @@ public class FuenteCochesNet extends HttpServlet{
 	    response.getWriter().print(salida);
 	  }
 	
-	public Document ObtenerHTML() {
+	public Document ObtenerDoc() {
 		String url = "https://www.coches.net/segunda-mano/?MakeId=18&ModelId=1202";
 		Response response = null;
 	    try {
@@ -124,5 +124,15 @@ Precio.
 		 
 		return datos;
 	}
+	
+	public void Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
+		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
+
+		  Document doc=ObtenerDoc();
+		    datos=ObtenerDatos(doc);
+		    for(ArrayList<String> linea : datos) {
+		    	System.out.print(linea+"\n");
+		    }
+		}
 	
 }
