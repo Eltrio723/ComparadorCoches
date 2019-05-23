@@ -51,51 +51,60 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 		
 		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 		Element body = doc.body();
-		Elements articulos = body.getElementsByClass("script__pill");
+		Elements articulos = body.select("article.elemento-segunda-mano");
 		//mt-Card-hover  mt-Card--topAd
 		String prec="";
 		
 		for (Element articulo : articulos){
 			
-				Elements lis = articulo.select("h2");
+				Elements lis = articulo.getElementsByClass("nombre-vehiculo");
 				ArrayList<String> meter= new ArrayList<String>();
 				//meter.add(articulo.select("h2").text());
 				//prec=lis.select("span:contains(cv)").text();
 				//MARCA Y MODELO
-				meter.add(articulo.getElementsByClass("make-model-version").text());
+				
+				meter.add(lis.select("a").text());
 				
 				//POTENCIA
-				prec=articulo.getElementsByClass("cv").text();
-				prec = prec.replace("cv","");
+				
+				lis=articulo.select("li");
+				prec=lis.select(":contains(cv)").text();
+				prec = prec.replace("CV","");
 				meter.add(prec);
 				//COMBUSTIBLE
-				meter.add(articulo.getElementsByClass("gas").text());
+				Element li=articulo.select("ul").get(0);
+				meter.add(li.child(1).text());
 				//ZONA GEOGRAFICA
-				
-				meter.add(articulo.getElementsByClass("location").text());
+				prec=articulo.getElementsByClass("lugar").text();
+				int inicio=prec.indexOf("(");
+				//int fin=prec.indexOf(")");
+				prec=prec.substring(inicio+1);
+				prec=prec.replace(")","");
+				meter.add(prec);
 				//FECHA MATRICULACION
-				
-				meter.add(articulo.getElementsByClass("year").text());
+				li=articulo.select("ul").get(0);
+				meter.add(li.child(0).text());
+//				meter.add(articulo.getElementsByClass("year").text());
 				//PRECIO
 				
-				prec=articulo.getElementsByClass("price").text();
+				prec=articulo.select("strong").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
 				meter.add(prec);
 				//KILÓMETROS
-				
-				//lis = articulo.select("li:contains(Kilómetros)");
-				prec=articulo.getElementsByClass("km").text();
-				prec = prec.replace("km","");
-//				prec=lis.select("span").text();
+				lis=articulo.select("li");
+				prec=lis.select(":contains(Km)").text();
+				prec = prec.replace("Km","");
 				meter.add(prec);
+				
 				//URL
-				lis=articulo.getElementsByClass("primary-link");
+				lis=articulo.getElementsByClass("datos");
+				lis=lis.select("a");
 				prec=lis.attr("href");
 				meter.add(prec);
 				//IMAGEN
-				
-				lis=articulo.getElementsByClass("main-photo");
+				lis=articulo.getElementsByClass("imagen");
+				lis=lis.select("img");
 				prec=lis.attr("src");
 				meter.add(prec);
 				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
@@ -116,7 +125,7 @@ Precio.
 		return datos;
 	}
 	public Document ObtenerHTML() {
-		String url = "https://www.coches.com/coches-segunda-mano/alfa-romeo.html";
+		String url = "https://www.motor.es/coches-segunda-mano/?marca=6";
 		Response response = null;
 	    try {
 	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();

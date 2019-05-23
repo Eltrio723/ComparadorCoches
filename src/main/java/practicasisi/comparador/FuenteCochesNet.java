@@ -138,5 +138,14 @@ Precio.
 		 
 		return datos;
 	}
+	  public void Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
+		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
+
+		  Document doc=ObtenerHTML();
+		    datos=ObtenerDatos(doc);
+		    for(ArrayList<String> linea : datos) {
+		    	System.out.print(linea+"\n");
+		    }
+		}
 	
 }

@@ -35,6 +35,7 @@ public class Buscador extends HttpServlet{
 			String potencia = (String) request.getParameter("potencia");
 			String provincia = (String) request.getParameter("provincia");
 			String fecha = (String) request.getParameter("fecha");
+			String combustible = (String) request.getParameter("combustible");
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
 
