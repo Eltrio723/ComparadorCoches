@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<meta charset="ISO-8859-1">
+ <meta charset="ISO-8859-1"> 
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" >
     <title>Busca tu nuevo coche</title>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
@@ -46,39 +46,39 @@
             <label class="formulario" for="usuario">Provincia <br>
                 <select class="input" name="provincia">
                 <option value='0'>------</option>
-  <option value='alava'>Ãlava</option>
+  <option value='alava'>Álava</option>
   <option value='albacete'>Albacete</option>
-  <option value='alicante'>Alicante/Alacant</option>
-  <option value='almeria'>AlmerÃ­a</option>
+  <option value='alicante'>Alicante</option>
+  <option value='almeria'>Almería</option>
   <option value='asturias'>Asturias</option>
-  <option value='avila'>Ãvila</option>
+  <option value='avila'>Ávila</option>
   <option value='badajoz'>Badajoz</option>
   <option value='barcelona'>Barcelona</option>
   <option value='burgos'>Burgos</option>
-  <option value='caceres'>CÃ¡ceres</option>
-  <option value='cadiz'>CÃ¡diz</option>
+  <option value='caceres'>Cáceres</option>
+  <option value='cadiz'>Cádiz</option>
   <option value='cantabria'>Cantabria</option>
-  <option value='castellon'>CastellÃ³n/CastellÃ³</option>
+  <option value='castellon'>Castellón</option>
   <option value='ceuta'>Ceuta</option>
   <option value='ciudadreal'>Ciudad Real</option>
-  <option value='cordoba'>CÃ³rdoba</option>
+  <option value='cordoba'>Córdoba</option>
   <option value='cuenca'>Cuenca</option>
   <option value='girona'>Girona</option>
   <option value='laspalmas'>Las Palmas</option>
   <option value='granada'>Granada</option>
   <option value='guadalajara'>Guadalajara</option>
-  <option value='guipuzcoa'>GuipÃºzcoa</option>
+  <option value='guipuzcoa'>Guipuzcoa</option>
   <option value='huelva'>Huelva</option>
   <option value='huesca'>Huesca</option>
   <option value='illesbalears'>Illes Balears</option>
-  <option value='jaen'>JaÃ©n</option>
-  <option value='acoruÃ±a'>A CoruÃ±a</option>
+  <option value='jaen'>Jaén</option>
+  <option value='acoruÃ±a'>A Coruña</option>
   <option value='larioja'>La Rioja</option>
-  <option value='leon'>LeÃ³n</option>
+  <option value='leon'>León</option>
   <option value='lleida'>Lleida</option>
   <option value='lugo'>Lugo</option>
   <option value='madrid'>Madrid</option>
-  <option value='malaga'>MÃ¡laga</option>
+  <option value='malaga'>Málaga</option>
   <option value='melilla'>Melilla</option>
   <option value='murcia'>Murcia</option>
   <option value='navarra'>Navarra</option>
@@ -93,21 +93,21 @@
   <option value='santacruztenerife'>Santa Cruz de Tenerife</option>
   <option value='teruel'>Teruel</option>
   <option value='toledo'>Toledo</option>
-  <option value='valencia'>Valencia/ValÃ©ncia</option>
+  <option value='valencia'>Valencia</option>
   <option value='valladolid'>Valladolid</option>
   <option value='vizcaya'>Vizcaya</option>
   <option value='zamora'>Zamora</option>
   <option value='zaragoza'>Zaragoza</option>
 </select>
             </label>
-            <label class="formulario" for="correo">Anio de matriculacion <br>
+            <label class="formulario" for="correo">Año de matriculación <br>
                 <input class="input" type="number" name="fecha">
             </label>
             <label class="formulario" for="correo">Precio(Euros) <br>
                 <input class="input" type="number" name="precio">
             </label>
             
-            <label class="formulario" for="correo">Kilometros <br>
+            <label class="formulario" for="correo">Kilómetros <br>
                 <input class="input" type="number" name="km">
             </label>
                          <label class="formulario1" >Tipo Combustible<br>
@@ -118,7 +118,7 @@
                             
                             <option value="diesel">Diesel</option>
                             
-                            <option value="electrico">ElÃ©ctrico</option>
+                            <option value="electrico">Eléctrico</option>
                             
                             </select>
             			</label>
@@ -131,7 +131,7 @@
     </section>
      </main>
      <footer class="pie">
-     <p>Autores: <b>Antonio JimÃ©nez</b> y <b>AndrÃ©s LÃ³pez</b></p>
+     <p>Autores: <b>Antonio Jiménez</b> y <b>Andrés López</b></p>
 	 
      </footer>
     <!-- <h1>Hola prÃ¡ctica de ISI!</h1>

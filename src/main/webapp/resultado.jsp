@@ -16,7 +16,7 @@
     </header>
     <main class="main1">
     <section class="subtitulo">
-    <h2 class="valor">Resultado de la busqueda</h2>
+    <h2 class="valor">Resultado de la búsqueda</h2>
     </section>
     
     <c:forEach var="oferta" items="${ofertas}">
