@@ -64,42 +64,42 @@ public class FuenteCochesNet{
 				//meter.add(articulo.select("h2").text());
 				//prec=lis.select("span:contains(cv)").text();
 				//MARCA Y MODELO
-				meter.add(articulo.getElementsByClass("make-model-version").text());
+				meter.add(articulo.getElementsByClass("make-model-version").text().trim());
 				
 				//POTENCIA
 				prec=articulo.getElementsByClass("cv").text();
 				prec = prec.replace("cv","");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//COMBUSTIBLE
-				meter.add(articulo.getElementsByClass("gas").text());
+				meter.add(articulo.getElementsByClass("gas").text().trim());
 				//ZONA GEOGRAFICA
 				
-				meter.add(articulo.getElementsByClass("location").text());
+				meter.add(articulo.getElementsByClass("location").text().trim());
 				//FECHA MATRICULACION
 				
-				meter.add(articulo.getElementsByClass("year").text());
+				meter.add(articulo.getElementsByClass("year").text().trim());
 				//PRECIO
 				
 				prec=articulo.getElementsByClass("price").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//KILÓMETROS
 				
 				//lis = articulo.select("li:contains(Kilómetros)");
 				prec=articulo.getElementsByClass("km").text();
 				prec = prec.replace("km","");
 //				prec=lis.select("span").text();
-				meter.add(prec);
+				meter.add(prec.trim());
 				//URL
 				lis=articulo.getElementsByClass("primary-link");
 				prec=lis.attr("href");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//IMAGEN
 				
 				lis=articulo.getElementsByClass("main-photo");
 				prec=lis.attr("src");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
 		  //  datos = "\n"+articulo.select("h2").text();
 		    datos.add(meter);

@@ -26,7 +26,7 @@ public class FuenteMilAnuncios{
 			public Document ObtenerHTML() {
 				Response response1=null;
 				Document doc=null;
-				String url="https://www.autocasion.com/coches-segunda-mano/alfa-romeo-ocasion";
+				String url="https://www.autocasion.com/coches-segunda-mano/alfa-romeo-ocasion?page=2";
 				 try {
 				    	response1 = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
 				    	
@@ -57,28 +57,29 @@ public class FuenteMilAnuncios{
 						//meter.add(articulo.select("h2").text());
 						//prec=lis.select("span:contains(cv)").text();
 						//MARCA Y MODELO
-						meter.add(articulo.select("h2").text());
+						meter.add(articulo.select("h2").text().trim());
 						//POTENCIA
 						prec=lis.select("span:contains(cv)").text();
 						prec = prec.replace("cv","");
-						meter.add(prec);
+						meter.add(prec.trim());
 						//COMBUSTIBLE
 						prec=lis.select("li:contains(Combustible)").select("span").text();
-						meter.add(prec);
+						meter.add(prec.trim());
 						//ZONA GEOGRAFICA
 						lis = articulo.select("li:contains(Provincia)");
 						prec=lis.select("span").text();
-						meter.add(lis.select("span").text());
+						meter.add(lis.select("span").text().trim());
 						//FECHA MATRICULACION
 						lis = articulo.select("li:contains(Matriculación)");
 						prec=lis.select("span").text();
-						meter.add(lis.select("span").text());
+						meter.add(lis.select("span").text().trim());
 						//PRECIO
 						
-						prec=articulo.select(".precio").first().text();
-						prec = prec.replace("Con financiación","");
+						prec=articulo.select(".precio").not(".icon icon-flecha-corta-abajo").text();
+						//prec=lis.not("financiacion").text();
+						//prec = prec.replace("Con financiación","");
 						prec = prec.replace("€","");
-						meter.add(prec);
+						meter.add(prec.trim());
 						//KILÓMETROS
 						
 						lis = articulo.select("li:contains(Kilómetros)");
@@ -86,18 +87,18 @@ public class FuenteMilAnuncios{
 						//prec = prec.replace("Kilómetros:","");
 						prec = prec.replace("km","");
 						
-						meter.add(prec);
+						meter.add(prec.trim());
 						//URL
 						
 						
 						lis=articulo.select("a");
 						prec="https://www.autocasion.com"+lis.attr("href");
-						meter.add(prec);
+						meter.add(prec.trim());
 				    datos.add(meter);
 				    //IMAGEN
 				    lis=articulo.select("img");
 				    prec="https:"+lis.attr("src");
-				    meter.add(prec);
+				    meter.add(prec.trim());
 				    
 				    datos.add(meter);
 				}

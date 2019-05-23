@@ -16,7 +16,7 @@
     </header>
     <main class="main1">
     <section class="subtitulo">
-    <h2 class="valor">Resultado de la bÃºsqueda</h2>
+    <h2 class="valor">Resultado de la busqueda</h2>
     </section>
     
     <c:forEach var="oferta" items="${ofertas}">
@@ -38,13 +38,13 @@
     				<p class="letra">Provincia: ${oferta.provincia}</p>
     			</article>
     			<article class="apartado_peque">
-    				<p class="letra">Precio(â‚¬): ${oferta.precio}</p>
+    				<p class="letra">Precio(Euros): ${oferta.precio}</p>
     			</article>
     			<article class="apartado_peque">
-    				<p class="letra">Kilómetros: ${oferta.km}</p>
+    				<p class="letra">Kilometros: ${oferta.km}</p>
     			</article>
     			<article class="apartado_peque">
-    				<p class="letra">Matriculación: ${oferta.fecha}</p>
+    				<p class="letra">Matriculacion: ${oferta.fecha}</p>
     			</article>
     			
     			
