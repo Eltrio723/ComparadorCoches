@@ -32,31 +32,33 @@ public class FuenteCochesNet extends HttpServlet{
 
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
+	    ArrayList<ArrayList<String>> salida =new ArrayList<ArrayList<String>>();
+	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
 
-	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
-
-	    Document doc = ObtenerDoc();
-	    response.getWriter().print(doc);
+	    Document doc = ObtenerHTML();
+	    //response.getWriter().print(doc);
 	    
-	    ArrayList<ArrayList<String>> salida = ObtenerDatos(doc);
-	    
-	    response.getWriter().print(salida);
+	    salida= ObtenerDatos(doc);
+	    for(ArrayList<String> linea : salida) {
+	    	response.getWriter().print(linea+"\n");
+	    }
+	    //response.getWriter().print(salida);
 	  }
 	
-	public Document ObtenerDoc() {
-		String url = "https://www.coches.net/segunda-mano/?MakeId=18&ModelId=1202";
+	public Document ObtenerHTML() {
+		String url = "https://www.coches.com/coches-segunda-mano/alfa-romeo.html";
 		Response response = null;
 	    try {
 	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
 	    	System.out.println("Codigo:" + response.statusCode());
 	    } catch (IOException ex) {
-	    	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
+	    	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
 	    }
 	    
 	    
 	    Document doc = null;
     	try {
-			doc = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).get();
+			doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
 					
     	} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -72,40 +74,52 @@ public class FuenteCochesNet extends HttpServlet{
 		
 		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 		Element body = doc.body();
-		Elements articulos = body.getElementsByClass("contenido-anuncio");
+		Elements articulos = body.getElementsByClass("script__pill");
+		//mt-Card-hover  mt-Card--topAd
 		String prec="";
+		
 		for (Element articulo : articulos){
 			
-				Elements lis = articulo.select("li");
+				Elements lis = articulo.select("h2");
 				ArrayList<String> meter= new ArrayList<String>();
 				//meter.add(articulo.select("h2").text());
 				//prec=lis.select("span:contains(cv)").text();
 				//MARCA Y MODELO
-				meter.add(articulo.select("h2").text());
+				meter.add(articulo.getElementsByClass("make-model-version").text());
+				
 				//POTENCIA
-				prec=lis.select("span:contains(cv)").text();
+				prec=articulo.getElementsByClass("cv").text();
 				prec = prec.replace("cv","");
-				//meter.add(prec);
+				meter.add(prec);
+				//COMBUSTIBLE
+				meter.add(articulo.getElementsByClass("gas").text());
 				//ZONA GEOGRAFICA
-				lis = articulo.select("li:contains(Provincia)");
-				prec=lis.select("span").text();
-				meter.add(lis.select("span").text());
+				
+				meter.add(articulo.getElementsByClass("location").text());
 				//FECHA MATRICULACION
-				lis = articulo.select("li:contains(Matriculación)");
-				prec=lis.select("span").text();
-				meter.add(lis.select("span").text());
+				
+				meter.add(articulo.getElementsByClass("year").text());
 				//PRECIO
 				
-				prec=articulo.select(".precio").first().text();
-				prec = prec.replace("Con financiación","");
+				prec=articulo.getElementsByClass("price").text();
+				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
 				meter.add(prec);
 				//KILÓMETROS
 				
-				lis = articulo.select("li:contains(Kilómetros)");
-				prec=lis.select("span").text();
+				//lis = articulo.select("li:contains(Kilómetros)");
+				prec=articulo.getElementsByClass("km").text();
 				prec = prec.replace("km","");
 //				prec=lis.select("span").text();
+				meter.add(prec);
+				//URL
+				lis=articulo.getElementsByClass("primary-link");
+				prec=lis.attr("href");
+				meter.add(prec);
+				//IMAGEN
+				
+				lis=articulo.getElementsByClass("main-photo");
+				prec=lis.attr("src");
 				meter.add(prec);
 				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
 		  //  datos = "\n"+articulo.select("h2").text();
@@ -124,15 +138,5 @@ Precio.
 		 
 		return datos;
 	}
-	
-	public void Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
-		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
-
-		  Document doc=ObtenerDoc();
-		    datos=ObtenerDatos(doc);
-		    for(ArrayList<String> linea : datos) {
-		    	System.out.print(linea+"\n");
-		    }
-		}
 	
 }
