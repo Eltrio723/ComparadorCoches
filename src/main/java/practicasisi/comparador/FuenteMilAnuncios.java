@@ -14,11 +14,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-@WebServlet(
-    name = "MilAnuncios",
-    urlPatterns = {"/fuentemilanuncios"}
-)
-public class FuenteMilAnuncios extends HttpServlet{
+
+public class FuenteMilAnuncios{
 		/**
 	 * 
 	 */
@@ -26,7 +23,7 @@ public class FuenteMilAnuncios extends HttpServlet{
 		
 		
 		
-			public Document ObtenerDoc() {
+			public Document ObtenerHTML() {
 				Response response1=null;
 				Document doc=null;
 				String url="https://www.autocasion.com/coches-segunda-mano/alfa-romeo-ocasion";
@@ -123,32 +120,21 @@ Precio.
 				 
 				return datos;
 			}
-	  @Override
-	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-	      throws IOException {
-		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
 
-	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
-	    Document doc=ObtenerDoc();
-	    datos=ObtenerDatos(doc);
-	    for(ArrayList<String> linea : datos) {
-	    	response.getWriter().print(linea+"\n");
-	    }
-	    //response.getWriter().print(datos);
-	    //response.getWriter().print(doc);
-	  }
 	  
 	  
-	  public void Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
+	  public Coleccion Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
-		  Document doc=ObtenerDoc();
+		  Document doc=ObtenerHTML();
 		    datos=ObtenerDatos(doc);
+		    Coleccion coleccion = new Coleccion();
+		    
 		    for(ArrayList<String> linea : datos) {
-		    	System.out.print(linea+"\n");
+		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), Integer.parseInt(linea.get(3)), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)), linea.get(6));
+		    	coleccion.pushOferta(o);
 		    }
+		    return coleccion;
 		}
 	  
 	}

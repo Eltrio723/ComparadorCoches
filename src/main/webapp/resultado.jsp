@@ -41,10 +41,10 @@
     				<p class="letra">Precio(€): ${oferta.precio}</p>
     			</article>
     			<article class="apartado_peque">
-    				<p class="letra">Kilómetros: ${oferta.km}</p>
+    				<p class="letra">Kil�metros: ${oferta.km}</p>
     			</article>
     			<article class="apartado_peque">
-    				<p class="letra">Matriculación: ${oferta.fecha}</p>
+    				<p class="letra">Matriculaci�n: ${oferta.fecha}</p>
     			</article>
     			
     			
@@ -57,39 +57,7 @@
     </c:forEach>
     
     	
-    	<section class="apartado">
-    		<a href="">
-    	<img class="foto_coche" src="https://images0.autocasion.com/unsafe/260x146/ad/10/1537/022fd85e7223cd1aef7acbae6295f5f3c27b69e6.jpeg" alt="FOTO COCHE">
-    		<section class="desc">
-    			<article class="apartado_peque1">
-    				<p class="letra">Marca-Modelo:Este es el modelo</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Potencia(cv):Este es el precio</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Tipo de combustible:Tipo</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Provincia:Este es la provincia</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Precio(€):Este es el precio</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Kilómetros:Este son los km</p>
-    			</article>
-    			<article class="apartado_peque">
-    				<p class="letra">Matriculación:Fecha matriculación</p>
-    			</article>
-    			
-    			
-    			
     	
-			
-    		</section>
-    		</a>
-    		</section>
     		
     	    	
     </main>

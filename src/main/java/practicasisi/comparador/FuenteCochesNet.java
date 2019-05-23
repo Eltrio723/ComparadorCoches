@@ -14,37 +14,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-@WebServlet(
-	    name = "FuenteCochesNet",
-	    urlPatterns = {"/fuenteCochesNet"}
-	)
 
-public class FuenteCochesNet extends HttpServlet{
+
+public class FuenteCochesNet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-	      throws IOException {
-
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    ArrayList<ArrayList<String>> salida =new ArrayList<ArrayList<String>>();
-	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
-
-	    Document doc = ObtenerHTML();
-	    //response.getWriter().print(doc);
-	    
-	    salida= ObtenerDatos(doc);
-	    for(ArrayList<String> linea : salida) {
-	    	response.getWriter().print(linea+"\n");
-	    }
-	    //response.getWriter().print(salida);
-	  }
-	
+		
 	public Document ObtenerHTML() {
 		String url = "https://www.coches.com/coches-segunda-mano/alfa-romeo.html";
 		Response response = null;
@@ -138,5 +117,19 @@ Precio.
 		 
 		return datos;
 	}
+	
+	public Coleccion Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
+		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
+
+		  Document doc=ObtenerHTML();
+		    datos=ObtenerDatos(doc);
+		    Coleccion coleccion = new Coleccion();
+		    
+		    for(ArrayList<String> linea : datos) {
+		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), Integer.parseInt(linea.get(3)), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)), linea.get(6));
+		    	coleccion.pushOferta(o);
+		    }
+		    return coleccion;
+		}
 	
 }

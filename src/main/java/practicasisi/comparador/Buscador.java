@@ -31,6 +31,7 @@ public class Buscador extends HttpServlet{
 	      throws IOException {
 
 		try {
+			Coleccion coleccion = new Coleccion();
 			String marca = (String) request.getParameter("marca");
 			String potencia = (String) request.getParameter("potencia");
 			String provincia = (String) request.getParameter("provincia");
@@ -39,16 +40,25 @@ public class Buscador extends HttpServlet{
 			String km = (String) request.getParameter("km");
 
 			FuenteMilAnuncios fuenteMilAnuncios = new FuenteMilAnuncios();
-			fuenteMilAnuncios.Buscar(marca, potencia, provincia, fecha, precio, km);
+			Coleccion coleccion1 = fuenteMilAnuncios.Buscar(marca, potencia, provincia, fecha, precio, km);
 			
 			FuenteCochesNet fuenteCochesNet = new FuenteCochesNet();
-			fuenteCochesNet.Buscar(marca, potencia, provincia, fecha, precio, km);
+			Coleccion coleccion2 = fuenteCochesNet.Buscar(marca, potencia, provincia, fecha, precio, km);
+			
+			
+			
+			coleccion.merge(coleccion1);
+			coleccion.merge(coleccion2);
+			
+			request.setAttribute("ofertas", coleccion.getOfertas());
+			request.getRequestDispatcher("resultado.jsp").forward(request, response);
 			
 			}
 		catch(Exception ex){
 			
 		}
 	  }
+	
 	
 	
 	
