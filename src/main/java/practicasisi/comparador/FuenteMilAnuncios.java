@@ -124,15 +124,27 @@ Precio.
 
 	  
 	  
-	  public Coleccion Buscar(String marca, String potencia, String provincia, String fecha, String precio, String km) {
+	  public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
 		  Document doc=ObtenerHTML();
 		    datos=ObtenerDatos(doc);
 		    Coleccion coleccion = new Coleccion();
-		    
+		    System.out.println("hola");
 		    for(ArrayList<String> linea : datos) {
-		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), Integer.parseInt(linea.get(3)), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)), linea.get(6));
+		    	
+		    	System.out.println(linea.get(0));//MARCA Y MODELO
+		    	System.out.println(linea.get(1));//PTENCIA
+		    	System.out.println(linea.get(2));//COMBUSTIBLE
+		    	System.out.println(linea.get(3));//PROVINCIA
+		    	System.out.println(linea.get(4));//AÑO
+		    	System.out.println(linea.get(5));//PRECIO
+		    	System.out.println(linea.get(6));//KM
+		    	System.out.println(linea.get(7));//LINK
+		    	System.out.println(linea.get(8));//IMAGEN
+		    	
+		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
+		    	System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
 		    }
 		    return coleccion;

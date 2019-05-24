@@ -3,24 +3,37 @@ package practicasisi.comparador;
 public class Oferta {
 	private String marca;
 	private int potencia;
+	private String combustible;
 	private String provincia;
 	private int fecha;
 	private int precio;
 	private int km;
-	private String combustible;
+	private String link;
+	private String imagen;
 	
 	public Oferta() {
 		
 	}
-	
-	public Oferta(String marca, int potencia, String provincia, int fecha, int precio, int km, String combustible) {
+//	System.out.println(linea.get(0));//MARCA Y MODELO
+//	System.out.println(linea.get(1));//PTENCIA
+//	System.out.println(linea.get(2));//COMBUSTIBLE
+//	System.out.println(linea.get(3));//PROVINCIA
+//	System.out.println(linea.get(4));//AÑO
+//	System.out.println(linea.get(5));//PRECIO
+//	System.out.println(linea.get(6));//KM
+//	System.out.println(linea.get(7));//LINK
+//	System.out.println(linea.get(8));//IMAGEN
+	public Oferta(String marca, int potencia,String combustible, String provincia, int fecha, int precio, int km, String link,String imagen) {
 		this.marca = marca;
 		this.potencia = potencia;
+		this.combustible = combustible;
 		this.provincia = provincia;
 		this.fecha = fecha;
 		this.precio = precio;
 		this.km = km;
-		this.combustible = combustible;
+		this.link=link;
+		this.imagen=imagen;
+		
 	}
 	
 	
@@ -40,7 +53,15 @@ public class Oferta {
 	  public void setPotencia(int potencia) {
 	    this.potencia = potencia;
 	  }
-	
+	  
+	  public String getCombustible() {
+		    return combustible;
+	  }
+	 
+	  public void setCombustible(String combustible) {
+		    this.combustible = combustible;
+	  }
+	  
 	  public String getProvincia() {
 	    return provincia;
 	  }
@@ -72,12 +93,22 @@ public class Oferta {
 	  public void setKm(int km) {
 	    this.km = km;
 	  }
-	
-	  public String getCombustible() {
-	    return combustible;
+	  
+	  public String getLink() {
+		    return link;
 	  }
- 
-	  public void setCombustible(String combustible) {
-	    this.combustible = combustible;
+	 
+	  public void setLink(String link) {
+		    this.link = link;
 	  }
+	  public String getImagen() {
+		    return imagen;
+	  }
+	 
+	  public void setImagen(String imagen) {
+		    this.imagen = imagen;
+	  }
+		
+
+	  
 }

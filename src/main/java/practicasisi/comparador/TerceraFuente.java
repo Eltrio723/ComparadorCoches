@@ -18,35 +18,35 @@ import org.jsoup.select.Elements;
 /**
  * Servlet implementation class TerceraFuente
  */
-@WebServlet(
-	    name = "TerceraFuente",
-	    urlPatterns = {"/tercerafuente"}
-	)
-public class TerceraFuente extends HttpServlet {
+//@WebServlet(
+//	    name = "TerceraFuente",
+//	    urlPatterns = {"/tercerafuente"}
+//	)
+public class TerceraFuente  {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
   
-    @Override
-	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-	      throws IOException {
-
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    ArrayList<ArrayList<String>> salida =new ArrayList<ArrayList<String>>();
-	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
-
-	    Document doc = ObtenerHTML();
-	    //response.getWriter().print(doc);
-	    
-	    salida= ObtenerDatos(doc);
-	    for(ArrayList<String> linea : salida) {
-	    	response.getWriter().print(linea+"\n");
-	    }
-	    //response.getWriter().print(salida);
-	  }
+//    @Override
+//	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+//	      throws IOException {
+//
+//	    response.setContentType("text/plain");
+//	    response.setCharacterEncoding("UTF-8");
+//	    ArrayList<ArrayList<String>> salida =new ArrayList<ArrayList<String>>();
+//	    response.getWriter().print("Hola pr�ctica de ISI!\r\n");
+//
+//	    Document doc = ObtenerHTML();
+//	    //response.getWriter().print(doc);
+//	    
+//	    salida= ObtenerDatos(doc);
+//	    for(ArrayList<String> linea : salida) {
+//	    	response.getWriter().print(linea+"\n");
+//	    }
+//	    //response.getWriter().print(salida);
+//	  }
 public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 		
 		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
@@ -148,7 +148,31 @@ Precio.
 	    
 	}
 
+	public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
+		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
+		  Document doc=ObtenerHTML();
+		    datos=ObtenerDatos(doc);
+		    Coleccion coleccion = new Coleccion();
+		    System.out.println("hola");
+		    for(ArrayList<String> linea : datos) {
+		    	
+		    	System.out.println(linea.get(0));//MARCA Y MODELO
+		    	System.out.println(linea.get(1));//PTENCIA
+		    	System.out.println(linea.get(2));//COMBUSTIBLE
+		    	System.out.println(linea.get(3));//PROVINCIA
+		    	System.out.println(linea.get(4));//AÑO
+		    	System.out.println(linea.get(5));//PRECIO
+		    	System.out.println(linea.get(6));//KM
+		    	System.out.println(linea.get(7));//LINK
+		    	System.out.println(linea.get(8));//IMAGEN
+		    	
+		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
+		    	System.out.println(linea.get(0));
+		    	coleccion.pushOferta(o);
+		    }
+		    return coleccion;
+		}
 	
 
 }

@@ -34,22 +34,24 @@ public class Buscador extends HttpServlet{
 			Coleccion coleccion = new Coleccion();
 			String marca = (String) request.getParameter("marca");
 			String potencia = (String) request.getParameter("potencia");
+			String combustible = (String) request.getParameter("combustible");
 			String provincia = (String) request.getParameter("provincia");
 			String fecha = (String) request.getParameter("fecha");
-			String combustible = (String) request.getParameter("combustible");
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
 
 			FuenteMilAnuncios fuenteMilAnuncios = new FuenteMilAnuncios();
-			Coleccion coleccion1 = fuenteMilAnuncios.Buscar(marca, potencia, provincia, fecha, precio, km);
+			Coleccion coleccion1 = fuenteMilAnuncios.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
 			FuenteCochesNet fuenteCochesNet = new FuenteCochesNet();
-			Coleccion coleccion2 = fuenteCochesNet.Buscar(marca, potencia, provincia, fecha, precio, km);
+			Coleccion coleccion2 = fuenteCochesNet.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
-			
+			TerceraFuente terceraFuente=new TerceraFuente();
+			Coleccion coleccion3 = terceraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
 			coleccion.merge(coleccion1);
 			coleccion.merge(coleccion2);
+			coleccion.merge(coleccion3);
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());
 			request.getRequestDispatcher("resultado.jsp").forward(request, response);
