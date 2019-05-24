@@ -124,8 +124,25 @@ Precio.
 		 
 		return datos;
 	}
-	public Document ObtenerHTML() {
-		String url = "https://www.motor.es/coches-segunda-mano/?marca=6";
+	public Document ObtenerHTML(String marca) {
+		String url = "";
+		if(marca=="Audi") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=6";
+		}else if(marca=="BMW") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=9";
+		}else if(marca=="Ford") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=23";
+		}else if(marca=="Honda") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=25";
+		}else if(marca=="Mercedes") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=45";
+		}else if(marca=="Mini") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=48";
+		}else if(marca=="Peugeot") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=52";
+		}else if(marca=="Seat") {
+			url="https://www.motor.es/coches-segunda-mano/?marca=60";
+		}
 		Response response = null;
 	    try {
 	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
@@ -151,7 +168,7 @@ Precio.
 	public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
-		  Document doc=ObtenerHTML();
+		  Document doc=ObtenerHTML(marca);
 		    datos=ObtenerDatos(doc);
 		    Coleccion coleccion = new Coleccion();
 		    System.out.println("hola");

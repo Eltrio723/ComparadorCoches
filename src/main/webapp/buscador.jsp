@@ -22,21 +22,21 @@
                 <select name="marca" class="input" >
 							<option value="">------</option>
 							
-                            <option value="1">Audi</option>
+                            <option value="Audi">Audi</option>
                             
-                            <option value="2">BMW</option>
+                            <option value="BMW">BMW</option>
                             
-                            <option value="3">Ford</option>
+                            <option value="Ford">Ford</option>
 
-                            <option value="4">Honda</option>
+                            <option value="Honda">Honda</option>
 
-                            <option value="5">Mercedes</option>
+                            <option value="Mercedes">Mercedes</option>
 
-                            <option value="6">Mini</option>
+                            <option value="Mini">Mini</option>
 
-                            <option value="7">Peugeut</option>
+                            <option value="Peugeot">Peugeot</option>
                             
-                            <option value="8">Seat</option>
+                            <option value="Seat">Seat</option>
                             
                             </select>
             </label>
@@ -44,7 +44,7 @@
                 <input class="input" type="number" name="potencia">
             </label>
             <label class="formulario" for="usuario">Provincia <br>
-                <select class="input" name="provincia">
+                <select class="input" name="provincia" >
                 <option value='0'>------</option>
   <option value='alava'>Álava</option>
   <option value='albacete'>Albacete</option>

@@ -24,8 +24,27 @@ public class FuenteCochesNet{
 	private static final long serialVersionUID = 1L;
 
 		
-	public Document ObtenerHTML() {
-		String url = "https://www.coches.com/coches-segunda-mano/alfa-romeo.html";
+	public Document ObtenerHTML(String marca) {
+		String url = "";
+		
+		if(marca=="Audi") {
+			url="https://www.coches.com/coches-segunda-mano/audi.html";
+		}else if(marca=="BMW") {
+			url="https://www.coches.com/coches-segunda-mano/bmw.html";
+		}else if(marca=="Ford") {
+			url="https://www.coches.com/coches-segunda-mano/ford.html";
+		}else if(marca=="Honda") {
+			url="https://www.coches.com/coches-segunda-mano/honda.html";
+		}else if(marca=="Mercedes") {
+			url="https://www.coches.com/coches-segunda-mano/mercedes.html";
+		}else if(marca=="Mini") {
+			url="https://www.coches.com/coches-segunda-mano/mini.html";
+		}else if(marca=="Peugeot") {
+			url="https://www.coches.com/coches-segunda-mano/peugeot.html";
+		}else if(marca=="Seat") {
+			url="https://www.coches.com/coches-segunda-mano/seat.html";
+		}
+		
 		Response response = null;
 	    try {
 	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
@@ -122,7 +141,7 @@ Precio.
 	public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
-		  Document doc=ObtenerHTML();
+		  Document doc=ObtenerHTML(marca);
 		    datos=ObtenerDatos(doc);
 		    Coleccion coleccion = new Coleccion();
 		    System.out.println("hola");
