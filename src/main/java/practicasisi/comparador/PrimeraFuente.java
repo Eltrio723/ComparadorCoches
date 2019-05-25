@@ -102,7 +102,7 @@ public class PrimeraFuente{
 				prec=articulo.getElementsByClass("price").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				prec = prec.replace("�", "");
+				//prec = prec.replace("�", "");
 				prec = prec.replace(".", "");
 				meter.add(prec.trim());
 				//KILÓMETROS

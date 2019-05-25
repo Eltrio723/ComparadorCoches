@@ -40,7 +40,9 @@ public class Buscador extends HttpServlet{
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
 			System.out.println(marca);
-
+			
+			API api=new API();
+			api.ObtenerDatosParaJSON(marca, potencia,combustible, provincia, fecha, precio, km);
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
