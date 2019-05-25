@@ -1,5 +1,5 @@
 package practicasisi.comparador;
-
+import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -39,10 +39,15 @@ public class Buscador extends HttpServlet{
 			String fecha = (String) request.getParameter("fecha");
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
-			System.out.println(marca);
+			
+			String datos="";
+			JSONObject obj=new JSONObject();
 			
 			API api=new API();
-			api.ObtenerDatosParaJSON(marca, potencia,combustible, provincia, fecha, precio, km);
+			
+			datos=api.ObtenerDatosParaJSON(marca);
+			obj=api.CambioJSON(datos);
+			System.out.println(obj.get("occasions"));
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
