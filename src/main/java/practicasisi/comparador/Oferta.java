@@ -12,6 +12,13 @@ public class Oferta implements Comparable<Oferta> {
 	private String imagen;
 	private int ponderacion;
 	
+	private static int ponPotencia = 5;
+	private static int ponCombustible = 30;
+	private static int ponProvincia = 1;
+	private static int ponFecha = 1;
+	private static int ponPrecio = 2;
+	private static int ponKm = 5;
+
 	public Oferta() {
 		
 	}
@@ -26,7 +33,7 @@ public class Oferta implements Comparable<Oferta> {
 		this.km = km;
 		this.link=link;
 		this.imagen=imagen;
-		
+		this.ponderacion = 0;
 	}
 	
 	
@@ -102,13 +109,47 @@ public class Oferta implements Comparable<Oferta> {
 		    this.imagen = imagen;
 	  }
 	  
+	  public int getPonderacion() {
+		  return ponderacion;
+	  }
+	  
 	  public void ponderar(int potencia, String combustible, String provincia, int fecha, int precio, int km) {
 		  
+		  this.ponderacion = 0;
+		  if(potencia != 0) {
+			  int difPotencia = this.potencia - potencia;
+			  this.ponderacion -= Math.abs(difPotencia/10) * ponPotencia;
+		  }
 		  
-		  //TODO
+		  if(!combustible.trim().equals("")) {
+			  if(this.combustible.equals(combustible)) {
+				  this.ponderacion += ponCombustible;
+			  }
+			  else {
+				  this.ponderacion += -ponCombustible;
+			  }
+		  }
 		  
+		  if(!provincia.trim().equals("")) {
+			  //Diferencia entre provincias
+		  }
 		  
+		  if(fecha != 0) {
+			  int difFecha = this.fecha - fecha;
+			  this.ponderacion += difFecha * ponFecha;
+		  }
 		  
+		  if(precio != 0) {
+			  int difPrecio = precio - this.precio;
+			  this.ponderacion += (difPrecio/1000) * ponPrecio;
+		  }
+		  
+		  if(km != 0) {
+			  int difKm = km - this.km;
+			  this.ponderacion += (difKm/5000) * ponKm;
+		  }
+		  
+		  System.out.print(this.ponderacion);
 	  }
 
 	@Override

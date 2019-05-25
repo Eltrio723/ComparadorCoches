@@ -160,6 +160,19 @@ Precio.
 		    	System.out.println(linea.get(7));//LINK
 		    	System.out.println(linea.get(8));//IMAGEN
 		    	
+		    	if(linea.get(1).trim().equals("")) {
+		    		linea.set(1, "0");
+		    	}
+		    	if(linea.get(4).trim().equals("")) {
+		    		linea.set(4, "0");
+		    	}
+		    	if(linea.get(5).trim().equals("")) {
+		    		linea.set(5, "0");
+		    	}
+		    	if(linea.get(6).trim().equals("")) {
+		    		linea.set(6, "0");
+		    	}
+		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
 		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
