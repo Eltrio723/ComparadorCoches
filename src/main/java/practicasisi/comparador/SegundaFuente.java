@@ -27,36 +27,36 @@ public class SegundaFuente{
 				Response response1=null;
 				Document doc=null;
 				String url="";//"https://www.autocasion.com/coches-segunda-mano/alfa-romeo-ocasion?page=2";
-				System.out.println(marca);
-				if(marca=="Audi") {
+				//System.out.println(marca);
+				if(marca.equals("Audi")) {
 					url="https://www.autocasion.com/coches-segunda-mano/audi-ocasion";
-				}else if(marca=="BMW") {
+				}else if(marca.equals("BMW")) {
 					url="https://www.autocasion.com/coches-segunda-mano/bmw-ocasion";
-				}else if(marca=="Ford") {
+				}else if(marca.equals("Ford")) {
 					url="https://www.autocasion.com/coches-segunda-mano/ford-ocasion";
-				}else if(marca=="Honda") {
+				}else if(marca.equals("Honda")) {
 					url="https://www.autocasion.com/coches-segunda-mano/honda-ocasion";
-				}else if(marca=="Mercedes") {
+				}else if(marca.equals("Mercedes")) {
 					url="https://www.autocasion.com/coches-segunda-mano/mercedes-benz-ocasion";
-				}else if(marca=="Mini") {
+				}else if(marca.equals("Mini")) {
 					url="https://www.autocasion.com/coches-segunda-mano/mini-ocasion";
-				}else if(marca=="Peugeot") {
+				}else if(marca.equals("Peugeot")) {
 					url="https://www.autocasion.com/coches-segunda-mano/peugeot-ocasion";
-				}else if(marca=="Seat") {
+				}else if(marca.equals("Seat")) {
 					url="https://www.autocasion.com/coches-segunda-mano/seat-ocasion";
 				}
-				 try {
-				    	response1 = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
-				    	
-				    } catch (IOException ex) {
-				    	System.out.println("Excepción al obtener el Status Code: " + ex.getMessage());
-				    }
+				 //try {
+				 //   	response1 = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
+				 //   	
+				 //   } catch (IOException ex) {
+				 //   	System.out.println("Excepción al obtener el Status Code: " + ex.getMessage());
+				 //   }
 				  
 				  try {
 					   doc = Jsoup.connect(url).get();
 					 
 				  } catch (IOException ex) {
-				    	System.out.println("Excepción al obtener el Status Code: " + ex.getMessage());
+				    	System.out.println("Excepcion al obtener el documento: " + ex.getMessage());
 				    }
 				
 				return doc;
@@ -97,6 +97,8 @@ public class SegundaFuente{
 						//prec=lis.not("financiacion").text();
 						//prec = prec.replace("Con financiación","");
 						prec = prec.replace("€","");
+						prec = prec.replace("�", "");
+						prec = prec.replace(".", "");
 						meter.add(prec.trim());
 						//KILÓMETROS
 						
@@ -104,7 +106,7 @@ public class SegundaFuente{
 						prec=lis.select("span").text();
 						//prec = prec.replace("Kilómetros:","");
 						prec = prec.replace("km","");
-						
+						prec = prec.replace(".", "");
 						meter.add(prec.trim());
 						//URL
 						
@@ -162,7 +164,7 @@ Precio.
 		    	System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
-		    	System.out.println(linea.get(0));
+		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
 		    }
 		    return coleccion;

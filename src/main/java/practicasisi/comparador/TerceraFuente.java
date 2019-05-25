@@ -80,7 +80,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				//int fin=prec.indexOf(")");
 				prec=prec.substring(inicio+1);
 				prec=prec.replace(")","");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//FECHA MATRICULACION
 				li=articulo.select("ul").get(0);
 				meter.add(li.child(0).text());
@@ -90,23 +90,26 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				prec=articulo.select("strong").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				meter.add(prec);
+				prec = prec.replace("�", "");
+				prec = prec.replace(".", "");
+				meter.add(prec.trim());
 				//KILÓMETROS
 				lis=articulo.select("li");
 				prec=lis.select(":contains(Km)").text();
 				prec = prec.replace("Km","");
+				prec = prec.replace(".", "");
 				meter.add(prec);
 				
 				//URL
 				lis=articulo.getElementsByClass("datos");
 				lis=lis.select("a");
 				prec=lis.attr("href");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//IMAGEN
 				lis=articulo.getElementsByClass("imagen");
 				lis=lis.select("img");
 				prec=lis.attr("src");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
 		  //  datos = "\n"+articulo.select("h2").text();
 		    datos.add(meter);
@@ -126,30 +129,30 @@ Precio.
 	}
 	public Document ObtenerHTML(String marca) {
 		String url = "";
-		if(marca=="Audi") {
+		if(marca.equals("Audi")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=6";
-		}else if(marca=="BMW") {
+		}else if(marca.equals("BMW")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=9";
-		}else if(marca=="Ford") {
+		}else if(marca.equals("Ford")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=23";
-		}else if(marca=="Honda") {
+		}else if(marca.equals("Honda")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=25";
-		}else if(marca=="Mercedes") {
+		}else if(marca.equals("Mercedes")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=45";
-		}else if(marca=="Mini") {
+		}else if(marca.equals("Mini")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=48";
-		}else if(marca=="Peugeot") {
+		}else if(marca.equals("Peugeot")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=52";
-		}else if(marca=="Seat") {
+		}else if(marca.equals("Seat")) {
 			url="https://www.motor.es/coches-segunda-mano/?marca=60";
 		}
 		Response response = null;
-	    try {
-	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
-	    	System.out.println("Codigo:" + response.statusCode());
-	    } catch (IOException ex) {
-	    	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
-	    }
+	    //try {
+	    //	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
+	    //	System.out.println("Codigo:" + response.statusCode());
+	    //} catch (IOException ex) {
+	    //	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
+	    //}
 	    
 	    
 	    Document doc = null;
@@ -171,7 +174,7 @@ Precio.
 		  Document doc=ObtenerHTML(marca);
 		    datos=ObtenerDatos(doc);
 		    Coleccion coleccion = new Coleccion();
-		    System.out.println("hola");
+		    //System.out.println("hola");
 		    for(ArrayList<String> linea : datos) {
 		    	
 		    	System.out.println(linea.get(0));//MARCA Y MODELO
@@ -185,7 +188,7 @@ Precio.
 		    	System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
-		    	System.out.println(linea.get(0));
+		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
 		    }
 		    return coleccion;

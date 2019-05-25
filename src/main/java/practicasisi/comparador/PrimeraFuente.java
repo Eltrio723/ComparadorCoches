@@ -27,31 +27,31 @@ public class PrimeraFuente{
 	public Document ObtenerHTML(String marca) {
 		String url = "";
 		
-		if(marca=="Audi") {
+		if(marca.equals("Audi")) {
 			url="https://www.coches.com/coches-segunda-mano/audi.html";
-		}else if(marca=="BMW") {
+		}else if(marca.equals("BMW")) {
 			url="https://www.coches.com/coches-segunda-mano/bmw.html";
-		}else if(marca=="Ford") {
+		}else if(marca.equals("Ford")) {
 			url="https://www.coches.com/coches-segunda-mano/ford.html";
-		}else if(marca=="Honda") {
+		}else if(marca.equals("Honda")) {
 			url="https://www.coches.com/coches-segunda-mano/honda.html";
-		}else if(marca=="Mercedes") {
+		}else if(marca.equals("Mercedes")) {
 			url="https://www.coches.com/coches-segunda-mano/mercedes.html";
-		}else if(marca=="Mini") {
+		}else if(marca.equals("Mini")) {
 			url="https://www.coches.com/coches-segunda-mano/mini.html";
-		}else if(marca=="Peugeot") {
+		}else if(marca.equals("Peugeot")) {
 			url="https://www.coches.com/coches-segunda-mano/peugeot.html";
-		}else if(marca=="Seat") {
+		}else if(marca.equals("Seat")) {
 			url="https://www.coches.com/coches-segunda-mano/seat.html";
 		}
 		
 		Response response = null;
-	    try {
-	    	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
-	    	System.out.println("Codigo:" + response.statusCode());
-	    } catch (IOException ex) {
-	    	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
-	    }
+	    //try {
+	    //	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
+	    //	System.out.println("Codigo:" + response.statusCode());
+	    //} catch (IOException ex) {
+	    //	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
+	    //}
 	    
 	    
 	    Document doc = null;
@@ -102,12 +102,15 @@ public class PrimeraFuente{
 				prec=articulo.getElementsByClass("price").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
+				prec = prec.replace("�", "");
+				prec = prec.replace(".", "");
 				meter.add(prec.trim());
 				//KILÓMETROS
 				
 				//lis = articulo.select("li:contains(Kilómetros)");
 				prec=articulo.getElementsByClass("km").text();
 				prec = prec.replace("km","");
+				prec = prec.replace(".","");
 //				prec=lis.select("span").text();
 				meter.add(prec.trim());
 				//URL
@@ -144,7 +147,7 @@ Precio.
 		  Document doc=ObtenerHTML(marca);
 		    datos=ObtenerDatos(doc);
 		    Coleccion coleccion = new Coleccion();
-		    System.out.println("hola");
+		    //System.out.println("hola");
 		    for(ArrayList<String> linea : datos) {
 		    	
 		    	System.out.println(linea.get(0));//MARCA Y MODELO
@@ -158,7 +161,7 @@ Precio.
 		    	System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
-		    	System.out.println(linea.get(0));
+		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
 		    }
 		    return coleccion;

@@ -12,7 +12,7 @@
 <body>
  <header class="cabecera" >
         
-        <a href="index.html"><img id="logo" src="https://cdn.pixabay.com/photo/2018/01/09/15/43/auto-3071895_960_720.png" alt="LOGO PRINCIPAL DE LA PÁGINA"></a>
+        <a href="buscador.jsp"><img id="logo" src="https://cdn.pixabay.com/photo/2018/01/09/15/43/auto-3071895_960_720.png" alt="LOGO PRINCIPAL DE LA PÁGINA"></a>
         <h1 id="titulo">COMPARADOR DE COCHES</h1>
 
     </header>
