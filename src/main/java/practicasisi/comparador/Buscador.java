@@ -2,9 +2,7 @@ package practicasisi.comparador;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import org.json.simple.JSONArray; 
-import org.json.simple.JSONObject; 
-import org.json.simple.parser.*;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +13,8 @@ import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.google.gson.JsonObject;
 
 @WebServlet(
 	    name = "Buscador",
@@ -32,8 +32,9 @@ public class Buscador extends HttpServlet{
 	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	      throws IOException {
 		String datos="";
-		JSONObject json=new JSONObject();
+		
 		try {
+			ArrayList<ArrayList<String>> datosMatriz= new ArrayList<ArrayList<String>>();
 			Coleccion coleccion = new Coleccion();
 			String marca = (String) request.getParameter("marca");
 			String potencia = (String) request.getParameter("potencia");
@@ -46,7 +47,12 @@ public class Buscador extends HttpServlet{
 			
 			API api=new API();
 			datos=api.ObtenerDatosParaJSON(marca);
-			json=api.CambioJSON(datos);
+			
+			JsonObject js=api.CambioJSON(datos);
+			js.get("totalCount").getAsString();
+			System.out.println(js.get("totalCount").getAsString());
+			datosMatriz=api.obtenerDatos(js);
+			Coleccion coleccion4= api.Buscar(datosMatriz);
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca);
 			
@@ -56,10 +62,10 @@ public class Buscador extends HttpServlet{
 			TerceraFuente terceraFuente=new TerceraFuente();
 			Coleccion coleccion3 = terceraFuente.Buscar(marca);
 			
-			coleccion.merge(coleccion1);
-			coleccion.merge(coleccion2);
-			coleccion.merge(coleccion3);
-			
+//			coleccion.merge(coleccion1);
+//			coleccion.merge(coleccion2);
+//			coleccion.merge(coleccion3);
+			coleccion.merge(coleccion4);
 			//coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());

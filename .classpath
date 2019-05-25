@@ -25,6 +25,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libraries/jsoup-1.11.3.jar"/>
-	<classpathentry kind="lib" path="libraries/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="libraries/gson-2.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
