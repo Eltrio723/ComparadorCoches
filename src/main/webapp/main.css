@@ -66,8 +66,8 @@ a{
 	margin:15px;
 	background:white;
 	border-radius:15px; 
-    height: 384px;
- 
+    /*height: 384px;*/
+ 	min-height: 500px;
         
 }
 .foto_coche{
