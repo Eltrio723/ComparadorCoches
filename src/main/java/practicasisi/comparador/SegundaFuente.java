@@ -95,10 +95,15 @@ public class SegundaFuente{
 						
 						prec=articulo.select(".precio").not(".icon icon-flecha-corta-abajo").text();
 						//prec=lis.not("financiacion").text();
-						//prec = prec.replace("Con financiación","");
+						prec = prec.replace("Con financiación","");
 						prec = prec.replace("€","");
-						prec = prec.replace("�", "");
+						prec = prec.replace("\u20AC", "");
 						prec = prec.replace(".", "");
+						prec = prec.trim();
+						int index = prec.lastIndexOf(" ");
+						if(index > 0) {
+							prec = prec.substring(index);
+						}
 						meter.add(prec.trim());
 						//KILÓMETROS
 						
@@ -114,7 +119,7 @@ public class SegundaFuente{
 						lis=articulo.select("a");
 						prec="https://www.autocasion.com"+lis.attr("href");
 						meter.add(prec.trim());
-				    datos.add(meter);
+				    //datos.add(meter);
 				    //IMAGEN
 				    lis=articulo.select("img");
 				    prec="https:"+lis.attr("src");

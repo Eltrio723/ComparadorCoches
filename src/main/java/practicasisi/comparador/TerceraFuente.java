@@ -70,7 +70,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				lis=articulo.select("li");
 				prec=lis.select(":contains(cv)").text();
 				prec = prec.replace("CV","");
-				meter.add(prec);
+				meter.add(prec.trim());
 				//COMBUSTIBLE
 				Element li=articulo.select("ul").get(0);
 				meter.add(li.child(1).text());
@@ -90,7 +90,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				prec=articulo.select("strong").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				prec = prec.replace("�", "");
+				prec = prec.replace("�", "");
 				prec = prec.replace(".", "");
 				meter.add(prec.trim());
 				//KILÓMETROS
@@ -98,7 +98,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				prec=lis.select(":contains(Km)").text();
 				prec = prec.replace("Km","");
 				prec = prec.replace(".", "");
-				meter.add(prec);
+				meter.add(prec.trim());
 				
 				//URL
 				lis=articulo.getElementsByClass("datos");
@@ -108,7 +108,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				//IMAGEN
 				lis=articulo.getElementsByClass("imagen");
 				lis=lis.select("img");
-				prec=lis.attr("src");
+				prec=lis.attr("data-src");
 				meter.add(prec.trim());
 				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
 		  //  datos = "\n"+articulo.select("h2").text();
@@ -186,6 +186,10 @@ Precio.
 		    	System.out.println(linea.get(6));//KM
 		    	System.out.println(linea.get(7));//LINK
 		    	System.out.println(linea.get(8));//IMAGEN
+		    	
+		    	if(linea.get(7).indexOf("www.motor.es") == -1) {
+		    		continue;
+		    	}
 		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
 		    	//System.out.println(linea.get(0));
