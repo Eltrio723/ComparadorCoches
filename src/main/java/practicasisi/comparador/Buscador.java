@@ -39,7 +39,7 @@ public class Buscador extends HttpServlet{
 			String fecha = (String) request.getParameter("fecha");
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
-			System.out.println(marca);
+			//System.out.println(marca);
 
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);

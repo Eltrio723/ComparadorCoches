@@ -50,7 +50,7 @@ public class PrimeraFuente{
 	    //	response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
 	    //	System.out.println("Codigo:" + response.statusCode());
 	    //} catch (IOException ex) {
-	    //	System.out.println("Excepci�n al obtener el Status Code: " + ex.getMessage());
+	    //	System.out.println("Excepciï¿½n al obtener el Status Code: " + ex.getMessage());
 	    //}
 	    
 	    
@@ -100,14 +100,14 @@ public class PrimeraFuente{
 				//PRECIO
 				
 				prec=articulo.getElementsByClass("price").text();
-				//prec = prec.replace("Con financiación","");
-				prec = prec.replace("€","");
-				prec = prec.replace("�", "");
+				//prec = prec.replace("Con financiaciÃ³n","");
+				//prec = prec.replace("â¬","");
+				prec = prec.replace("\u20AC", "");
 				prec = prec.replace(".", "");
 				meter.add(prec.trim());
-				//KILÓMETROS
+				//KILÃMETROS
 				
-				//lis = articulo.select("li:contains(Kilómetros)");
+				//lis = articulo.select("li:contains(KilÃ³metros)");
 				prec=articulo.getElementsByClass("km").text();
 				prec = prec.replace("km","");
 				prec = prec.replace(".","");
@@ -122,18 +122,18 @@ public class PrimeraFuente{
 				lis=articulo.getElementsByClass("main-photo");
 				prec=lis.attr("src");
 				meter.add(prec.trim());
-				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posición x
+				//El selector span:nth-child(x) busca al padre de span y elige al elemento hijo en la posiciÃ³n x
 		  //  datos = "\n"+articulo.select("h2").text();
 		    datos.add(meter);
 		}
 		
 		/*
 		 * Tipo de combustible.
-Potencia y tamaño del motor.
-Kilómetros recorridos del vehículo.
+Potencia y tamaÃ±o del motor.
+KilÃ³metros recorridos del vehÃ­culo.
 Marca y modelo.
-Zona geográfica.
-Fecha de matriculación.
+Zona geogrÃ¡fica.
+Fecha de matriculaciÃ³n.
 Precio.
 */
 		 
@@ -154,7 +154,7 @@ Precio.
 		    	System.out.println(linea.get(1));//PTENCIA
 		    	System.out.println(linea.get(2));//COMBUSTIBLE
 		    	System.out.println(linea.get(3));//PROVINCIA
-		    	System.out.println(linea.get(4));//AÑO
+		    	System.out.println(linea.get(4));//AÃO
 		    	System.out.println(linea.get(5));//PRECIO
 		    	System.out.println(linea.get(6));//KM
 		    	System.out.println(linea.get(7));//LINK
