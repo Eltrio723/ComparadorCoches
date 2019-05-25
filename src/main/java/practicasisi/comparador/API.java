@@ -1,6 +1,14 @@
 package practicasisi.comparador;
+import java.io.FileReader; 
+import java.util.Iterator; 
+import java.util.Map; 
+  
+import org.json.simple.JSONArray; 
+import org.json.simple.JSONObject; 
+import org.json.simple.parser.*;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -10,12 +18,12 @@ import java.util.ArrayList;
 public class API {
 	String url="";
 	
-	public String ObtenerDatosParaJSON(String marca,String potencia,String combustible,String provincia,String fecha,String precio,String km) 
+	public String ObtenerDatosParaJSON(String marca) 
 			throws IOException {
 		//ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 		String datos="";
-		try {
-			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels["+marca+"]=";
+																						//  ["+marca+"]
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[jeep]=";
 			
 			URL obj = new URL(url);
 			URLConnection con = obj.openConnection();
@@ -25,12 +33,18 @@ public class API {
 	                datos=datos+linea;
 	                System.out.print(datos);
 	            }
-	        } catch (IOException e) {
-	            System.out.println(e.getMessage());
-	        }
+	       
 
 
 			 
 			return datos;
 		}
+	
+	public JSONObject CambioJSON(String datos) throws FileNotFoundException, IOException, ParseException {
+		 Object obj = new JSONParser().parse(datos); 
+         
+	       
+	        JSONObject jo = (JSONObject) obj; 
+	        return jo;
+	}
 }
