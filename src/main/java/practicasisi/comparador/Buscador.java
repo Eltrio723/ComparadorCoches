@@ -40,11 +40,12 @@ public class Buscador extends HttpServlet{
 			String precio = (String) request.getParameter("precio");
 			String km = (String) request.getParameter("km");
 			System.out.println(marca);
-			FuenteMilAnuncios fuenteMilAnuncios = new FuenteMilAnuncios();
-			Coleccion coleccion1 = fuenteMilAnuncios.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
+
+			PrimeraFuente primeraFuente = new PrimeraFuente();
+			Coleccion coleccion1 = primeraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
-			FuenteCochesNet fuenteCochesNet = new FuenteCochesNet();
-			Coleccion coleccion2 = fuenteCochesNet.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
+			SegundaFuente segundaFuente = new SegundaFuente();
+			Coleccion coleccion2 = segundaFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
 			
 			TerceraFuente terceraFuente=new TerceraFuente();
 			Coleccion coleccion3 = terceraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
