@@ -102,7 +102,7 @@ public class PrimeraFuente{
 				prec=articulo.getElementsByClass("price").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				//prec = prec.replace("�", "");
+				prec = prec.replace("\u20AC", "");
 				prec = prec.replace(".", "");
 				meter.add(prec.trim());
 				//KILÓMETROS
@@ -141,7 +141,7 @@ Precio.
 	}
 	 
 	
-	public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
+	public Coleccion Buscar(String marca) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
 		  Document doc=ObtenerHTML(marca);
@@ -159,6 +159,19 @@ Precio.
 		    	System.out.println(linea.get(6));//KM
 		    	System.out.println(linea.get(7));//LINK
 		    	System.out.println(linea.get(8));//IMAGEN
+		    	
+		    	if(linea.get(1).trim().equals("")) {
+		    		linea.set(1, "0");
+		    	}
+		    	if(linea.get(4).trim().equals("")) {
+		    		linea.set(4, "0");
+		    	}
+		    	if(linea.get(5).trim().equals("")) {
+		    		linea.set(5, "0");
+		    	}
+		    	if(linea.get(6).trim().equals("")) {
+		    		linea.set(6, "0");
+		    	}
 		    	
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
 		    	//System.out.println(linea.get(0));
