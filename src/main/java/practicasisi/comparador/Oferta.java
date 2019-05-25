@@ -1,6 +1,6 @@
 package practicasisi.comparador;
 
-public class Oferta {
+public class Oferta implements Comparable<Oferta> {
 	private String marca;
 	private int potencia;
 	private String combustible;
@@ -10,19 +10,12 @@ public class Oferta {
 	private int km;
 	private String link;
 	private String imagen;
+	private int ponderacion;
 	
 	public Oferta() {
 		
 	}
-//	System.out.println(linea.get(0));//MARCA Y MODELO
-//	System.out.println(linea.get(1));//PTENCIA
-//	System.out.println(linea.get(2));//COMBUSTIBLE
-//	System.out.println(linea.get(3));//PROVINCIA
-//	System.out.println(linea.get(4));//AÑO
-//	System.out.println(linea.get(5));//PRECIO
-//	System.out.println(linea.get(6));//KM
-//	System.out.println(linea.get(7));//LINK
-//	System.out.println(linea.get(8));//IMAGEN
+
 	public Oferta(String marca, int potencia,String combustible, String provincia, int fecha, int precio, int km, String link,String imagen) {
 		this.marca = marca;
 		this.potencia = potencia;
@@ -108,7 +101,23 @@ public class Oferta {
 	  public void setImagen(String imagen) {
 		    this.imagen = imagen;
 	  }
-		
+	  
+	  public void ponderar(int potencia, String combustible, String provincia, int fecha, int precio, int km) {
+		  
+		  
+		  //TODO
+		  
+		  
+		  
+	  }
 
+	@Override
+	public int compareTo(Oferta o) {
+		return o.ponderacion - this.ponderacion;
+	}
+	  
+
+
+	  
 	  
 }

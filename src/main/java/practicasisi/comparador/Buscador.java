@@ -44,17 +44,19 @@ public class Buscador extends HttpServlet{
 			//API api=new API();
 			//api.ObtenerDatosParaJSON(marca, potencia,combustible, provincia, fecha, precio, km);
 			PrimeraFuente primeraFuente = new PrimeraFuente();
-			Coleccion coleccion1 = primeraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
+			Coleccion coleccion1 = primeraFuente.Buscar(marca);
 			
 			SegundaFuente segundaFuente = new SegundaFuente();
-			Coleccion coleccion2 = segundaFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
+			Coleccion coleccion2 = segundaFuente.Buscar(marca);
 			
 			TerceraFuente terceraFuente=new TerceraFuente();
-			Coleccion coleccion3 = terceraFuente.Buscar(marca, potencia,combustible, provincia, fecha, precio, km);
+			Coleccion coleccion3 = terceraFuente.Buscar(marca);
 			
 			coleccion.merge(coleccion1);
 			coleccion.merge(coleccion2);
 			coleccion.merge(coleccion3);
+			
+			coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());
 			request.getRequestDispatcher("resultado.jsp").forward(request, response);

@@ -1,6 +1,7 @@
 package practicasisi.comparador;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Coleccion {
 	private ArrayList<Oferta> ofertas;
@@ -42,6 +43,14 @@ public class Coleccion {
 	
 	public void merge(Coleccion col) {
 		this.ofertas.addAll(col.ofertas);
+	}
+
+	
+	public void ponderar(int potencia, String combustible, String provincia, int fecha, int precio, int km) {
+		for(Oferta o : this.ofertas) {
+			o.ponderar(potencia, combustible, provincia, fecha, precio, km);
+		}
+		Collections.sort(this.ofertas);		
 	}
 	
 }

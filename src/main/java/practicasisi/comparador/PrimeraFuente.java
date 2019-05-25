@@ -141,7 +141,7 @@ Precio.
 	}
 	 
 	
-	public Coleccion Buscar(String marca, String potencia,String combustible, String provincia, String fecha, String precio, String km) {
+	public Coleccion Buscar(String marca) {
 		  ArrayList<ArrayList<String>> datos=new ArrayList<ArrayList<String>>();
 
 		  Document doc=ObtenerHTML(marca);
