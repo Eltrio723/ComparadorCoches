@@ -33,18 +33,15 @@ public class API {
 	                datos=datos+linea;
 	                System.out.print(datos);
 	            }
-	       
-
-
-			 
+	    
+			  
 			return datos;
 		}
 	
 	public JSONObject CambioJSON(String datos) throws FileNotFoundException, IOException, ParseException {
-		 Object obj = new JSONParser().parse(datos); 
-         
-	       
-	        JSONObject jo = (JSONObject) obj; 
+		 //Object obj = new JSONParser().parse(datos); 
+		 JSONParser obj = new JSONParser();
+	        JSONObject jo = (JSONObject) obj.parse(datos); 
 	        return jo;
 	}
 }

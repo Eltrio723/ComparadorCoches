@@ -2,7 +2,9 @@ package practicasisi.comparador;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import org.json.simple.JSONArray; 
+import org.json.simple.JSONObject; 
+import org.json.simple.parser.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,8 @@ public class Buscador extends HttpServlet{
 	@Override
 	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	      throws IOException {
-
+		String datos="";
+		JSONObject json=new JSONObject();
 		try {
 			Coleccion coleccion = new Coleccion();
 			String marca = (String) request.getParameter("marca");
@@ -41,8 +44,9 @@ public class Buscador extends HttpServlet{
 			String km = (String) request.getParameter("km");
 			//System.out.println(marca);
 			
-			//API api=new API();
-			//api.ObtenerDatosParaJSON(marca, potencia,combustible, provincia, fecha, precio, km);
+			API api=new API();
+			datos=api.ObtenerDatosParaJSON(marca);
+			json=api.CambioJSON(datos);
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca);
 			
@@ -56,7 +60,7 @@ public class Buscador extends HttpServlet{
 			coleccion.merge(coleccion2);
 			coleccion.merge(coleccion3);
 			
-			coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
+			//coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());
 			request.getRequestDispatcher("resultado.jsp").forward(request, response);
