@@ -187,7 +187,7 @@ Precio.
 		    	//System.out.println(linea.get(7));//LINK
 		    	//System.out.println(linea.get(8));//IMAGEN
 		    	
-		    	if(linea.get(1).trim().equals("")) {
+		    	/*if(linea.get(1).trim().equals("")) {
 		    		linea.set(1, "0");
 		    	}
 		    	if(linea.get(4).trim().equals("")) {
@@ -198,7 +198,22 @@ Precio.
 		    	}
 		    	if(linea.get(6).trim().equals("")) {
 		    		linea.set(6, "0");
+		    	}*/
+		    	
+		    	if(!tryParseInt(linea.get(1).trim())) {
+		    		linea.set(1, "0");
 		    	}
+		    	if(!tryParseInt(linea.get(4).trim())) {
+		    		linea.set(4, "0");
+		    	}
+		    	if(!tryParseInt(linea.get(5).trim())) {
+		    		linea.set(5, "0");
+		    	}
+		    	if(!tryParseInt(linea.get(6).trim())) {
+		    		linea.set(6, "0");
+		    	}
+		    	
+		    	
 		    	if(linea.get(7).indexOf("www.motor.es") == -1) {
 				    //System.out.print("SAL");
 		    		continue;
@@ -213,5 +228,13 @@ Precio.
 		    return coleccion;
 		}
 	
+	boolean tryParseInt(String value) {  
+	     try {  
+	         Integer.parseInt(value);  
+	         return true;  
+	      } catch (NumberFormatException e) {  
+	         return false;  
+	      }  
+	}
 
 }

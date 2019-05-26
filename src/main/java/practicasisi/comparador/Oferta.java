@@ -16,7 +16,7 @@ public class Oferta implements Comparable<Oferta> {
 	private static int ponCombustible = 30;
 	private static int ponProvincia = 50;
 	private static int ponFecha = 1;
-	private static int ponPrecio = 2;
+	private static int ponPrecio = 10;
 	private static int ponKm = 5;
 
 	public Oferta() {
@@ -129,9 +129,37 @@ public class Oferta implements Comparable<Oferta> {
 				  this.ponderacion += -ponCombustible;
 			  }
 		  }
-		  
+		  		  
 		  if(!provincia.trim().equals("")) {
-			  if(this.provincia.equals(provincia.trim())) {
+			  String p1 = this.provincia.toLowerCase();
+			  String p2 = provincia.toLowerCase();
+			  
+			  p1.replace("á", "a");
+			  p1.replace("é", "e");
+			  p1.replace("í", "i");
+			  p1.replace("ó", "o");
+			  p1.replace("ú", "u");
+			  p1.replace("Á", "A");
+			  p1.replace("É", "E");
+			  p1.replace("Í", "I");
+			  p1.replace("Ó", "O");
+			  p1.replace("Ú", "U");
+			  p1.replace("ñ", "n");
+			  p1.replace("Ñ", "N");
+			  p2.replace("á", "a");
+			  p2.replace("é", "e");
+			  p2.replace("í", "i");
+			  p2.replace("ó", "o");
+			  p2.replace("ú", "u");
+			  p2.replace("Á", "A");
+			  p2.replace("É", "E");
+			  p2.replace("Í", "I");
+			  p2.replace("Ó", "O");
+			  p2.replace("Ú", "U");
+			  p2.replace("ñ", "n");
+			  p2.replace("Ñ", "N");
+			  
+			  if(p1.equals(p2.trim())) {
 				  this.ponderacion += ponProvincia;
 			  }
 		  }

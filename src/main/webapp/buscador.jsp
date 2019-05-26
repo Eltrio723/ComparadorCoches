@@ -137,7 +137,7 @@
     <!-- <h1>Hola prÃ¡ctica de ISI!</h1>
 	<h2>Antonio JimÃ©nez</h2>
 	<h2>AndrÃ©s LÃ³pez</h2> -->
-    <table>
+    <!-- <table>
       <tr>
         <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
       </tr>
@@ -147,6 +147,6 @@
         <td><a href='/fuenteCochesNet'>Coches.net</a></td>
         <td><a href='/tercerafuente'>TerceraFuente.net</a></td>
       </tr>
-    </table>
+    </table> -->
   </body>
 </html>

@@ -45,14 +45,25 @@ public class Buscador extends HttpServlet{
 			String km = (String) request.getParameter("km");
 			//System.out.println(marca);
 			
+			//System.out.print("\n Inicio");
 			API api=new API();
+			//System.out.print("\n Objeto creado");
+
 			datos=api.ObtenerDatosParaJSON(marca);
+			//System.out.print("\n Datos obtenidos");
 
 			JsonObject js=api.CambioJSON(datos);
+			//System.out.print("\n Datos cambiados");
+
 			//js.get("totalCount").getAsString();
 			//System.out.println(js.get("totalCount").getAsString());
 			datosMatriz=api.obtenerDatos(js);
+			//System.out.print("\n Datos obtenidos");
+
 			Coleccion coleccion4= api.Buscar(datosMatriz);
+			
+			//System.out.print("\n Coleccion cargada");
+
 			
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			
@@ -68,6 +79,20 @@ public class Buscador extends HttpServlet{
 			coleccion.merge(coleccion2);
 			coleccion.merge(coleccion3);
 			coleccion.merge(coleccion4);
+			
+			if(potencia.trim().equals("")) {
+				potencia = "0";
+	    	}
+	    	if(fecha.trim().equals("")) {
+	    		fecha = "0";
+	    	}
+	    	if(precio.trim().equals("")) {
+	    		precio = "0";
+	    	}
+	    	if(km.trim().equals("")) {
+	    		km = "0";
+	    	}
+			
 			coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());

@@ -51,9 +51,10 @@ public class API {
 			 String linea;
 	            while ((linea = in.readLine()) != null) {
 	                datos=datos+linea;
-	                System.out.print(datos);
 	            }
-	    
+	            in.close();
+	            
+             System.out.print(datos);
 			  
 			return datos;
 		}
@@ -65,6 +66,10 @@ public class API {
 		JsonObject jsonObject = new Gson().fromJson(datos, JsonObject.class);
 	        return jsonObject;
 	}
+	
+	
+	
+	
 	public ArrayList<ArrayList<String>> obtenerDatos(JsonObject json){
 		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList<String>>();
 
@@ -74,21 +79,23 @@ public class API {
 			String prec="";
 			int posicion = 0;
 			int indice = 0;
-			int num_ofertas= json.get("totalCount").getAsInt();
-
+			//int num_ofertas= json.get("totalCount").getAsInt();
+			int num_ofertas = array.size();
 			while(indice < num_ofertas) {
 				ArrayList<String> meter= new ArrayList<String>();
 
 				JsonElement elemento=array.get(indice);
-				//System.out.print("\nelemento " + indice + ": " + elemento);
+				//System.out.print("\n\n\nelemento " + (indice + 1) + "/" + num_ofertas + ": " + elemento);
 				
 				JsonObject elementoObject = elemento.getAsJsonObject();
 				
 				//PARA MARCA Y MODELO
 				prec = elementoObject.get("make").getAsString() + " ";
 				prec += elementoObject.get("model").getAsString() + " ";
-				String tipo = elementoObject.get("type").getAsString();
-				prec += tipo.substring(0, tipo.lastIndexOf(" ")).trim();
+				//String tipo = elementoObject.get("type").getAsString();
+				//prec += tipo.substring(0, tipo.lastIndexOf(" ")).trim();
+				prec += elementoObject.get("type").getAsString();
+
 				//System.out.print("\nMarca y modelo: " + prec);
 
 				meter.add(prec);
@@ -193,7 +200,7 @@ public class API {
 		    	//System.out.println(linea.get(7));//LINK
 		    	//System.out.println(linea.get(8));//IMAGEN
 		    	
-		    	if(linea.get(1).trim().equals("")) {
+		    	/*if(linea.get(1).trim().equals("")) {
 		    		linea.set(1, "0");
 		    	}
 		    	if(linea.get(4).trim().equals("")) {
@@ -204,12 +211,39 @@ public class API {
 		    	}
 		    	if(linea.get(6).trim().equals("")) {
 		    		linea.set(6, "0");
-		    	}
+		    	}*/
 		    	
+		    	if(!tryParseInt(linea.get(1).trim())) {
+		    		linea.set(1, "0");
+		    	}
+		    	if(!tryParseInt(linea.get(4).trim())) {
+		    		linea.set(4, "0");
+		    	}
+		    	if(!tryParseInt(linea.get(5).trim())) {
+		    		linea.set(5, "0");
+		    	}
+		    	if(!tryParseInt(linea.get(6).trim())) {
+		    		linea.set(6, "0");
+		    	}
+
+		    	
+		    	//System.out.println("\n Antes");
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
 		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
+		    	//System.out.println("Despues\n");
 		    }
+		    //System.out.println("Fin");
 		    return coleccion;
 		}
+	
+	boolean tryParseInt(String value) {  
+	     try {  
+	         Integer.parseInt(value);  
+	         return true;  
+	      } catch (NumberFormatException e) {  
+	         return false;  
+	      }  
+	}
+	
 }
