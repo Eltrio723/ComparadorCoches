@@ -47,12 +47,13 @@ public class Buscador extends HttpServlet{
 			
 			API api=new API();
 			datos=api.ObtenerDatosParaJSON(marca);
-			
+
 			JsonObject js=api.CambioJSON(datos);
-			js.get("totalCount").getAsString();
-			System.out.println(js.get("totalCount").getAsString());
+			//js.get("totalCount").getAsString();
+			//System.out.println(js.get("totalCount").getAsString());
 			datosMatriz=api.obtenerDatos(js);
 			Coleccion coleccion4= api.Buscar(datosMatriz);
+			
 			PrimeraFuente primeraFuente = new PrimeraFuente();
 			Coleccion coleccion1 = primeraFuente.Buscar(marca);
 			
@@ -62,11 +63,11 @@ public class Buscador extends HttpServlet{
 			TerceraFuente terceraFuente=new TerceraFuente();
 			Coleccion coleccion3 = terceraFuente.Buscar(marca);
 			
-//			coleccion.merge(coleccion1);
-//			coleccion.merge(coleccion2);
-//			coleccion.merge(coleccion3);
+			coleccion.merge(coleccion1);
+			coleccion.merge(coleccion2);
+			coleccion.merge(coleccion3);
 			coleccion.merge(coleccion4);
-			//coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
+			coleccion.ponderar(Integer.parseInt(potencia), combustible, provincia, Integer.parseInt(fecha), Integer.parseInt(precio), Integer.parseInt(km));
 			
 			request.setAttribute("ofertas", coleccion.getOfertas());
 			request.getRequestDispatcher("resultado.jsp").forward(request, response);

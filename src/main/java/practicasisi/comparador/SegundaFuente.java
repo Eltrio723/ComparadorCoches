@@ -158,15 +158,15 @@ Precio.
 		    
 		    for(ArrayList<String> linea : datos) {
 		    	
-		    	System.out.println(linea.get(0));//MARCA Y MODELO
-		    	System.out.println(linea.get(1));//PTENCIA
-		    	System.out.println(linea.get(2));//COMBUSTIBLE
-		    	System.out.println(linea.get(3));//PROVINCIA
-		    	System.out.println(linea.get(4));//AÑO
-		    	System.out.println(linea.get(5));//PRECIO
-		    	System.out.println(linea.get(6));//KM
-		    	System.out.println(linea.get(7));//LINK
-		    	System.out.println(linea.get(8));//IMAGEN
+		    	//System.out.println(linea.get(0));//MARCA Y MODELO
+		    	//System.out.println(linea.get(1));//PTENCIA
+		    	//System.out.println(linea.get(2));//COMBUSTIBLE
+		    	//System.out.println(linea.get(3));//PROVINCIA
+		    	//System.out.println(linea.get(4));//AÑO
+		    	//System.out.println(linea.get(5));//PRECIO
+		    	//System.out.println(linea.get(6));//KM
+		    	//System.out.println(linea.get(7));//LINK
+		    	//System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	if(linea.get(1).trim().equals("")) {
 		    		linea.set(1, "0");

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.jsoup.nodes.Document;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -43,14 +44,13 @@ public class API {
 			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[seat]=";
 		}																	//  ["+marca+"]
 			
-			
 			URL obj = new URL(url);
 			URLConnection con = obj.openConnection();
 			 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			 String linea;
 	            while ((linea = in.readLine()) != null) {
 	                datos=datos+linea;
-	                //System.out.print(datos);
+	                System.out.print(datos);
 	            }
 	    
 			  
@@ -65,77 +65,114 @@ public class API {
 	        return jsonObject;
 	}
 	public ArrayList<ArrayList<String>> obtenerDatos(JsonObject json){
-		
 		ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList<String>>();
-		ArrayList<String> meter= new ArrayList<String>();
-		
-		JsonObject objeto=json.getAsJsonObject("occasions");
-		System.out.print(json.get("occasions").getAsString());
-		String prec="";
-		int posicion;
-		JsonObject elemento2=new JsonObject();
-		int num_ofertas= json.get("totalCount").getAsInt();
-		
-		for(int i=0;i<num_ofertas;i++) {
+
+		try {
+			JsonArray array=json.getAsJsonArray("occasions");
+
+			String prec="";
+			int posicion = 0;
+			int indice = 0;
+			int num_ofertas= json.get("totalCount").getAsInt();
+
+			while(indice < num_ofertas) {
+				ArrayList<String> meter= new ArrayList<String>();
+
+				JsonElement elemento=array.get(indice);
+				//System.out.print("\nelemento " + indice + ": " + elemento);
+				
+				JsonObject elementoObject = elemento.getAsJsonObject();
+				
+				//PARA MARCA Y MODELO
+				prec = elementoObject.get("make").getAsString() + " ";
+				prec += elementoObject.get("model").getAsString() + " ";
+				String tipo = elementoObject.get("type").getAsString();
+				prec += tipo.substring(0, tipo.lastIndexOf(" ")).trim();
+				//System.out.print("\nMarca y modelo: " + prec);
+
+				meter.add(prec);
+				
+				//POTENCIA
+				prec=elementoObject.get("type").getAsString();
+				posicion=prec.lastIndexOf(" ");
+				prec=prec.substring(posicion+1);
+				meter.add(prec);
+				
+				//System.out.print("\nPotencia: " + prec);
+
+				//COMBUSTIBLE
+				prec=elementoObject.get("fuel").getAsString();
+				if(prec.equals("gasoline")) {
+					meter.add("Gasolina");
+				}else if(prec.equals("diesel")) {
+					meter.add("Diesel");
+				}else {
+					meter.add("Electrico");
+				}
+				//System.out.print("\nCombustible: " + prec);
+
+				
+				//ZONA GEOGRAFICA
+				prec=elementoObject.get("retailLocationCode").getAsString();
+				meter.add(prec.substring(0, 1).toUpperCase() + prec.substring(1));
+				//System.out.print("\nProvincia: " + prec);
+
 			
-			JsonObject elemento1=objeto.getAsJsonObject(Integer.toString(i));
-			//PARA MARCA Y MODELO
-			prec=elemento1.get("make").getAsString();
-			prec+=elemento1.get("model").getAsString();
-			prec+=elemento1.get("type").getAsString();
-			System.out.print(prec);
-			meter.add(prec);
-			//POTENCIA
-			prec=elemento1.get("type").getAsString();
-			posicion=prec.lastIndexOf(" ");
-			prec=prec.substring(posicion+1);
-			meter.add(prec);
-			//COMBUSTIBLE
-			prec=elemento1.get("fuel").getAsString();
-			if(prec.equals("gasoline")) {
-				meter.add("gasolina");
-			}else if(prec.equals("diesel")) {
-				meter.add("diesel");
-			}else {
-				meter.add("electrico");
+				//FECHA MATRICULACION
+				prec=Integer.toString(elementoObject.get("yearOfConstruction").getAsInt());
+				meter.add(prec);
+				//System.out.print("\nFecha: " + prec);
+
+			
+				//PRECIO
+				prec=Integer.toString(elementoObject.get("salePrice").getAsJsonObject().get("amount").getAsInt());
+				meter.add(prec);
+				//System.out.print("\nPrecio: " + prec);
+
+			
+				//KILÓMETROS
+				prec=Integer.toString(elementoObject.get("mileage").getAsJsonObject().get("amount").getAsInt());
+				meter.add(prec);
+				//System.out.print("\nKm: " + prec);
+				
+			
+				//URL
+				prec="https://www.carnext.com/es-es/coches/";
+				prec+=elementoObject.get("make").getAsString() +"/";
+				prec+=elementoObject.get("model").getAsString() +"/";
+				prec+=elementoObject.get("id").getAsString() +"/";
+				meter.add(prec);
+				//System.out.print("\nLink: " + prec);
+
+			
+				//IMAGEN
+				//elemento2=objeto.getAsJsonObject("image");
+				//prec=elemento2.get("urlTemplate").getAsString();
+				prec=elementoObject.get("image").getAsJsonObject().get("urlTemplate").getAsString();
+
+				prec=prec.replace("{size}","400");
+				prec=prec.replace("{dimension}","width");
+				meter.add(prec);
+				//System.out.print("\nImagen: " + prec);
+
+				datos.add(meter);
+				
+				indice++;
+				
+				
 			}
-			//ZONA GEOGRAFICA
-			prec=elemento1.get("retailLocationCode").getAsString();
-			meter.add(prec);
-		
-			//FECHA MATRICULACION
-			prec=Integer.toString(elemento1.get("yearOfConstruction").getAsInt());
-			meter.add(prec);
-		
-			//PRECIO
-			elemento2=objeto.getAsJsonObject("salePrice");
-			prec=Integer.toString(elemento2.get("amount").getAsInt());
-			meter.add(prec);
-		
-			//KILÓMETROS
-			elemento2=objeto.getAsJsonObject("mileage");
-			prec=Integer.toString(elemento2.get("amount").getAsInt());
-			meter.add(prec);
-		
-			//URL
-			prec="https://www.carnext.com/es-es/coches/";
-			prec+=elemento1.get("make").getAsString()+"/";
-			prec+=elemento1.get("model").getAsString()+"/";
-			prec+=elemento1.get("id").getAsString()+"/";
-			meter.add(prec);
-		
-			//IMAGEN
-			elemento2=objeto.getAsJsonObject("image");
-			prec=elemento2.get("urlTemplate").getAsString();
-			prec=prec.replace("{size}","400");
-			prec=prec.replace("{dimension}","width");
-			meter.add(prec);
-		
-		datos.add(meter);
+			
+
+		}
+		catch(Exception ex) {
+			System.out.print(ex.getMessage());
 		}
 		
 		return datos;
 	}
+	
+	
+	
 	public Coleccion Buscar(ArrayList<ArrayList<String>> datos) {
 		  
 
@@ -145,15 +182,15 @@ public class API {
 		    //System.out.println("hola");
 		    for(ArrayList<String> linea : datos) {
 		    	
-		    	System.out.println(linea.get(0));//MARCA Y MODELO
-		    	System.out.println(linea.get(1));//PTENCIA
-		    	System.out.println(linea.get(2));//COMBUSTIBLE
-		    	System.out.println(linea.get(3));//PROVINCIA
-		    	System.out.println(linea.get(4));//AÑO
-		    	System.out.println(linea.get(5));//PRECIO
-		    	System.out.println(linea.get(6));//KM
-		    	System.out.println(linea.get(7));//LINK
-		    	System.out.println(linea.get(8));//IMAGEN
+		    	//System.out.println(linea.get(0));//MARCA Y MODELO
+		    	//System.out.println(linea.get(1));//PTENCIA
+		    	//System.out.println(linea.get(2));//COMBUSTIBLE
+		    	//System.out.println(linea.get(3));//PROVINCIA
+		    	//System.out.println(linea.get(4));//AÑO
+		    	//System.out.println(linea.get(5));//PRECIO
+		    	//System.out.println(linea.get(6));//KM
+		    	//System.out.println(linea.get(7));//LINK
+		    	//System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	if(linea.get(1).trim().equals("")) {
 		    		linea.set(1, "0");

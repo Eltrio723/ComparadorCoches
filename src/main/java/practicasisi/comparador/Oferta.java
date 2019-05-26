@@ -14,7 +14,7 @@ public class Oferta implements Comparable<Oferta> {
 	
 	private static int ponPotencia = 5;
 	private static int ponCombustible = 30;
-	private static int ponProvincia = 1;
+	private static int ponProvincia = 50;
 	private static int ponFecha = 1;
 	private static int ponPrecio = 2;
 	private static int ponKm = 5;
@@ -131,7 +131,9 @@ public class Oferta implements Comparable<Oferta> {
 		  }
 		  
 		  if(!provincia.trim().equals("")) {
-			  //Diferencia entre provincias
+			  if(this.provincia.equals(provincia.trim())) {
+				  this.ponderacion += ponProvincia;
+			  }
 		  }
 		  
 		  if(fecha != 0) {
@@ -149,7 +151,7 @@ public class Oferta implements Comparable<Oferta> {
 			  this.ponderacion += (difKm/5000) * ponKm;
 		  }
 		  
-		  System.out.print(this.ponderacion);
+		  //System.out.print(this.ponderacion);
 	  }
 
 	@Override

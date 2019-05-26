@@ -177,15 +177,15 @@ Precio.
 		    //System.out.println("hola");
 		    for(ArrayList<String> linea : datos) {
 		    	
-		    	System.out.println(linea.get(0));//MARCA Y MODELO
-		    	System.out.println(linea.get(1));//PTENCIA
-		    	System.out.println(linea.get(2));//COMBUSTIBLE
-		    	System.out.println(linea.get(3));//PROVINCIA
-		    	System.out.println(linea.get(4));//AÑO
-		    	System.out.println(linea.get(5));//PRECIO
-		    	System.out.println(linea.get(6));//KM
-		    	System.out.println(linea.get(7));//LINK
-		    	System.out.println(linea.get(8));//IMAGEN
+		    	//System.out.println(linea.get(0));//MARCA Y MODELO
+		    	//System.out.println(linea.get(1));//PTENCIA
+		    	//System.out.println(linea.get(2));//COMBUSTIBLE
+		    	//System.out.println(linea.get(3));//PROVINCIA
+		    	//System.out.println(linea.get(4));//AÑO
+		    	//System.out.println(linea.get(5));//PRECIO
+		    	//System.out.println(linea.get(6));//KM
+		    	//System.out.println(linea.get(7));//LINK
+		    	//System.out.println(linea.get(8));//IMAGEN
 		    	
 		    	if(linea.get(1).trim().equals("")) {
 		    		linea.set(1, "0");
@@ -200,13 +200,16 @@ Precio.
 		    		linea.set(6, "0");
 		    	}
 		    	if(linea.get(7).indexOf("www.motor.es") == -1) {
+				    //System.out.print("SAL");
 		    		continue;
 		    	}
-		    	
+			    //System.out.print("Entra");
+
 		    	Oferta o = new Oferta(linea.get(0), Integer.parseInt(linea.get(1)), linea.get(2), linea.get(3), Integer.parseInt(linea.get(4)), Integer.parseInt(linea.get(5)),Integer.parseInt(linea.get(6)), linea.get(7),linea.get(8));
 		    	//System.out.println(linea.get(0));
 		    	coleccion.pushOferta(o);
 		    }
+		    //System.out.print("FIN");
 		    return coleccion;
 		}
 	
