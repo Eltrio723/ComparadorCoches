@@ -26,24 +26,23 @@ public class API {
 			throws IOException {
 		//ArrayList<ArrayList<String>> datos= new ArrayList<ArrayList <String>>();
 		String datos="";
-//		if(marca.equals("Audi")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[audi]=";
-//		}else if(marca.equals("BMW")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[bmw]=";
-//		}else if(marca.equals("Ford")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[ford]=";
-//		}else if(marca.equals("Honda")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[honda]=";
-//		}else if(marca.equals("Mercedes")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[mercedes-benz]=";
-//		}else if(marca.equals("Mini")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[mini]=";
-//		}else if(marca.equals("Peugeot")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[peugeot]=";
-//		}else if(marca.equals("Seat")) {
-//			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[seat]=";
-//		}	
-		url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[audi]=";
+		if(marca.equals("Audi")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[audi]=";
+		}else if(marca.equals("BMW")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[bmw]=";
+		}else if(marca.equals("Ford")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[ford]=";
+		}else if(marca.equals("Honda")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[honda]=";
+		}else if(marca.equals("Mercedes")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[mercedes-benz]=";
+		}else if(marca.equals("Mini")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[mini]=";
+		}else if(marca.equals("Peugeot")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[peugeot]=";
+		}else if(marca.equals("Seat")) {
+			url="https://www.carnext.com/api2/occasions/cars?locale=es-es&size=17&makeModels[seat]=";
+		}	
 		//  ["+marca+"]
 			
 			URL obj = new URL(url);
