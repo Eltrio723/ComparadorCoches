@@ -122,7 +122,7 @@ public class Oferta implements Comparable<Oferta> {
 		  }
 		  
 		  if(!combustible.trim().equals("")) {
-			  if(this.combustible.equals(combustible)) {
+			  if(this.combustible.toLowerCase().equals(combustible.trim().toLowerCase())) {
 				  this.ponderacion += ponCombustible;
 			  }
 			  else {
