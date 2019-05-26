@@ -1,0 +1,8 @@
+El proyecto solo funciona con toda su funcionalidad cuando se ejecuta en local. 
+El proyecto se despliega sin problema en el Google App Engine y se carga de manera adecuada,
+pero en algún momento del procesamiento ocurre algo inesperado y no se completa.
+No hemos podido resolver este fallo por las limitaciones de App Engine en cuanto a depuración.
+
+En resumen, proyecto se despliega y carga sin problema en App Engine, pero no termina la ejecución a la hora de recoger los datos de las fuentes. Mientras que su ejecución en local funciona de manera adecuada.
+Creemos que podría tratarse de un problema al usar bibliotecas externas, pero no hemos 
+podido resolver el problema con ningún cambio en el build path ni la localización de las bibliotecas (Gson y jsoup).
