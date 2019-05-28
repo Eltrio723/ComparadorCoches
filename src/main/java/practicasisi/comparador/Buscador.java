@@ -16,6 +16,8 @@ import org.jsoup.select.Elements;
 
 import com.google.gson.JsonObject;
 
+import sun.rmi.runtime.Log;
+
 @WebServlet(
 	    name = "Buscador",
 	    urlPatterns = {"/buscador"}
@@ -45,40 +47,66 @@ public class Buscador extends HttpServlet{
 			String km = (String) request.getParameter("km");
 			//System.out.println(marca);
 			
-			//System.out.print("\n Inicio");
-			API api=new API();
-			//System.out.print("\n Objeto creado");
+			
+			
+			try {
+				//System.out.print("\n Inicio");
+				API api=new API();
+				//System.out.print("\n Objeto creado");
 
-			datos=api.ObtenerDatosParaJSON(marca);
-			//System.out.print("\n Datos obtenidos");
+				datos=api.ObtenerDatosParaJSON(marca);
+				//System.out.print("\n Datos obtenidos");
 
-			JsonObject js=api.CambioJSON(datos);
-			//System.out.print("\n Datos cambiados");
+				JsonObject js=api.CambioJSON(datos);
+				//System.out.print("\n Datos cambiados");
 
-			//js.get("totalCount").getAsString();
-			//System.out.println(js.get("totalCount").getAsString());
-			datosMatriz=api.obtenerDatos(js);
-			//System.out.print("\n Datos obtenidos");
+				//js.get("totalCount").getAsString();
+				//System.out.println(js.get("totalCount").getAsString());
+				datosMatriz=api.obtenerDatos(js);
+				//System.out.print("\n Datos obtenidos");
 
-			Coleccion coleccion4= api.Buscar(datosMatriz);
+				Coleccion coleccion4= api.Buscar(datosMatriz);
+				coleccion.merge(coleccion4);
+			}
+			catch (Exception ex){
+				log(ex.getMessage());
+			}
+			
 			
 			//System.out.print("\n Coleccion cargada");
 
+			try {
+				PrimeraFuente primeraFuente = new PrimeraFuente();
+				Coleccion coleccion1 = primeraFuente.Buscar(marca);
+				coleccion.merge(coleccion1);
+			}
+			catch (Exception ex){
+				log(ex.getMessage());
+			}
 			
-			PrimeraFuente primeraFuente = new PrimeraFuente();
+			try {
+				SegundaFuente segundaFuente = new SegundaFuente();
+				Coleccion coleccion2 = segundaFuente.Buscar(marca);
+				coleccion.merge(coleccion2);
+			}
+			catch (Exception ex){
+				log(ex.getMessage());
+			}
 			
-			Coleccion coleccion1 = primeraFuente.Buscar(marca);
+			try {
+				TerceraFuente terceraFuente=new TerceraFuente();
+				Coleccion coleccion3 = terceraFuente.Buscar(marca);
+				coleccion.merge(coleccion3);
+			}
+			catch (Exception ex){
+				log(ex.getMessage());
+			}
 			
-			SegundaFuente segundaFuente = new SegundaFuente();
-			Coleccion coleccion2 = segundaFuente.Buscar(marca);
 			
-			TerceraFuente terceraFuente=new TerceraFuente();
-			Coleccion coleccion3 = terceraFuente.Buscar(marca);
 			
-			coleccion.merge(coleccion1);
-			coleccion.merge(coleccion2);
-			coleccion.merge(coleccion3);
-			coleccion.merge(coleccion4);
+			
+			
+			
 			
 			if(potencia.trim().equals("")) {
 				potencia = "0";

@@ -90,7 +90,7 @@ public ArrayList<ArrayList<String>> ObtenerDatos(Document doc) {
 				prec=articulo.select("strong").text();
 				//prec = prec.replace("Con financiación","");
 				prec = prec.replace("€","");
-				prec = prec.replace("�", "");
+				prec = prec.replace("\u20AC", "");
 				prec = prec.replace(".", "");
 				meter.add(prec.trim());
 				//KILÓMETROS
